@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campeonato ACE PRUEBAS</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=Exo+2:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -227,9 +225,9 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
     <a class="nav-logo" href="#">
       <div class="logo-mark">
         <svg viewBox="0 0 36 36" fill="none">
-          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
-          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"/>
-          <circle cx="18" cy="18" r="4" fill="#00d4ff"/>
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00d4ff" stroke-width="1.5"></polygon>
+          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"></polygon>
+          <circle cx="18" cy="18" r="4" fill="#00d4ff"></circle>
         </svg>
       </div>
       <div>
@@ -238,10 +236,10 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
       </div>
     </a>
     <div class="nav-tabs">
-      <div class="nav-tab active" data-page="championship">Campeonato</div>
+      <div class="nav-tab" data-page="championship">Campeonato</div>
       <div class="nav-tab" data-page="sessions">Sesiones</div>
       <div class="nav-tab" data-page="stats">Pilotos</div>
-      <div class="nav-tab" data-page="admin">Admin</div>
+      <div class="nav-tab active" data-page="admin">Admin</div>
     </div>
     <div class="nav-actions">
       <button class="btn-upload" onclick="goAdmin()">+ Subir sesión</button>
@@ -250,21 +248,37 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 </nav>
 
 <!-- CHAMPIONSHIP PAGE -->
-<div class="page active" id="page-championship">
+<div class="page" id="page-championship">
   <div class="hero">
     <div class="hero-title">Campeonato <span>ACE PRUEBAS</span></div>
     <div class="hero-meta" id="hero-meta">Assetto Corsa Evo · Temporada 2026</div>
     <div class="hero-stats" id="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">0</div><div class="hero-stat-label">Sesiones</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">0</div><div class="hero-stat-label">Pilotos</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">0</div><div class="hero-stat-label">Vueltas totales</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">1</div><div class="hero-stat-label">Sesiones</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">1</div><div class="hero-stat-label">Pilotos</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">4</div><div class="hero-stat-label">Vueltas totales</div></div>
     </div>
   </div>
 
   <div class="section-header"><div class="section-title">Clasificación general</div></div>
-  <div class="champ-table" id="champ-table">
-    <div class="empty-state"><p>Sin datos · Sube sesiones desde el panel Admin</p></div>
-  </div>
+  <div class="champ-table" id="champ-table"><table>
+    <thead><tr>
+      <th>P</th><th>Piloto</th><th>Pts</th><th style="width:140px">Progreso</th>
+      <th style="text-align:center">Victorias</th><th style="text-align:center">Podios</th>
+      <th>Mejor vuelta</th>
+    </tr></thead>
+    <tbody><tr class="p1-row">
+        <td><span class="pos-num pos-1">1</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:#00d4ff"></div>
+          <div><div class="driver-fullname">Oscar Funes</div><div class="driver-nick">Funes</div></div>
+        </div></td>
+        <td><span class="pts">0</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:0%;background:#00d4ff"></div></div></div></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">1:43.014</td>
+      </tr></tbody>
+  </table></div>
 </div>
 
 <!-- SESSIONS PAGE -->
@@ -290,7 +304,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 </div>
 
 <!-- ADMIN PAGE -->
-<div class="page" id="page-admin">
+<div class="page active" id="page-admin">
   <div class="admin-section">
     <div class="admin-title">Subir sesión</div>
     <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
@@ -298,11 +312,17 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
       <div class="upload-text">Arrastra el fichero JSON aquí o haz clic para seleccionar</div>
       <div class="upload-sub">Ficheros de resultado de Assetto Corsa Evo (.json)</div>
     </div>
-    <input type="file" id="fileInput" accept=".json" multiple>
+    <input type="file" id="fileInput" accept=".json" multiple="">
   </div>
   <div class="admin-section">
     <div class="admin-title">Sesiones cargadas</div>
-    <div id="admin-sessions-list"><div class="empty-state"><p>No hay sesiones cargadas</p></div></div>
+    <div id="admin-sessions-list"><div class="sessions-admin"><div class="session-admin-row">
+      <div>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Sebring International Raceway · GP</span>
+        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Practice · 18/4/2026 · 1 piloto</span>
+      </div>
+      <button class="del-btn" onclick="deleteSession(0)">Eliminar</button>
+    </div></div></div>
   </div>
   <div class="admin-section">
     <div class="admin-title">Publicar para los pilotos</div>
@@ -315,7 +335,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
         <li><span class="step-num">4</span>En 1-2 minutos los pilotos verán los datos actualizados</li>
       </ul>
     </div>
-    <button class="btn-export" id="exportBtn" onclick="exportHTML()">⬇ Exportar index.html</button>
+    <button class="btn-export" id="exportBtn" onclick="exportHTML()" disabled="">Generando...</button>
   </div>
 </div>
 
@@ -908,8 +928,13 @@ renderChampionship();`
 }
 
 // ── INIT ───────────────────────────────────────────────────────────────
+// Data pre-loaded at export time
+(function(){
+  try{ localStorage.setItem('ace_pruebas_sessions', "[{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Practice\",\"session_type\":\"Practice\",\"track_name\":\"Sebring International Raceway\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13996418724651682993\",\"b\":\"13235391879167654699\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/TimeAttack.Specialization\",\"base\":{\"session_duration_ms\":600000,\"session_laps\":0,\"maximum_session_overtime_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"speeding\":{\"required_speed\":60,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_MP_TeleportToPit\",\"penalty_time_ms\":10000,\"laps_for_clearing\":0},\"weight\":70}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[0],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":108489,\"split\":[31740,48981,27768],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":126399,\"split\":[52548,46548,27303],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":103014,\"split\":[30144,46101,26769],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":131085,\"split\":[55425,48603,27057],\"flags\":1}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776510586986,\"_filename\":\"results_20260418_102628_practice.json\"}]"); }catch(e){}
+})();
 loadFromStorage();
 renderChampionship();
 </script>
-</body>
-</html>
+
+
+</body></html>
