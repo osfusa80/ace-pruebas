@@ -188,6 +188,13 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 .session-admin-row:last-child{border-bottom:none;}
 .del-btn{background:rgba(255,68,68,0.1);color:var(--red);border:1px solid rgba(255,68,68,0.2);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:4px 12px;border-radius:4px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
 .del-btn:hover{background:rgba(255,68,68,0.2);}
+.btn-export{background:transparent;color:var(--green);border:1px solid rgba(0,230,118,0.35);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;padding:10px 24px;border-radius:6px;cursor:pointer;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:8px;width:100%;justify-content:center;margin-top:1rem;}
+.btn-export:hover{background:rgba(0,230,118,0.08);border-color:rgba(0,230,118,0.6);}
+.btn-export:disabled{opacity:0.4;cursor:not-allowed;}
+.export-box{background:var(--surface2);border:1px solid rgba(0,230,118,0.2);border-radius:8px;padding:1.25rem 1.5rem;margin-top:1rem;}
+.export-steps{list-style:none;margin-top:8px;}
+.export-steps li{font-size:13px;color:var(--muted2);padding:4px 0;display:flex;align-items:flex-start;gap:8px;}
+.export-steps li span.step-num{color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;flex-shrink:0;}
 .empty-state{text-align:center;padding:3rem;color:var(--muted);}
 .empty-state p{font-family:'Rajdhani',sans-serif;font-size:16px;margin-top:8px;}
 
@@ -296,6 +303,19 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
   <div class="admin-section">
     <div class="admin-title">Sesiones cargadas</div>
     <div id="admin-sessions-list"><div class="empty-state"><p>No hay sesiones cargadas</p></div></div>
+  </div>
+  <div class="admin-section">
+    <div class="admin-title">Publicar para los pilotos</div>
+    <div class="export-box">
+      <div style="font-size:13px;color:var(--muted2);line-height:1.6;">Exporta la web con todos los datos incrustados y súbela a GitHub para que los pilotos vean los resultados actualizados.</div>
+      <ul class="export-steps">
+        <li><span class="step-num">1</span>Haz clic en "Exportar index.html" — se descargará el fichero</li>
+        <li><span class="step-num">2</span>Ve a github.com · tu repositorio ace-pruebas</li>
+        <li><span class="step-num">3</span>Haz clic en index.html → icono del lápiz → "Upload file" para reemplazarlo</li>
+        <li><span class="step-num">4</span>En 1-2 minutos los pilotos verán los datos actualizados</li>
+      </ul>
+    </div>
+    <button class="btn-export" id="exportBtn" onclick="exportHTML()">⬇ Exportar index.html</button>
   </div>
 </div>
 
@@ -851,6 +871,40 @@ function processFiles(files){
     };
     reader.readAsText(file);
   });
+}
+
+// ── EXPORT ─────────────────────────────────────────────────────────────
+function exportHTML(){
+  if(!sessions.length){ showToast('No hay sesiones que exportar','err'); return; }
+  const btn = document.getElementById('exportBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generando...';
+
+  const dataJson = JSON.stringify(sessions);
+  const currentHTML = document.documentElement.outerHTML;
+
+  // Inject sessions data as a pre-loaded variable before the closing script
+  const injected = currentHTML.replace(
+    '// ── INIT ───────────────────────────────────────────────────────────────\nloadFromStorage();\nrenderChampionship();',
+    `// ── INIT ───────────────────────────────────────────────────────────────
+// Data pre-loaded at export time
+(function(){
+  try{ localStorage.setItem('ace_pruebas_sessions', ${JSON.stringify(dataJson)}); }catch(e){}
+})();
+loadFromStorage();
+renderChampionship();`
+  );
+
+  const blob = new Blob([injected], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  setTimeout(()=>{ btn.disabled=false; btn.textContent='⬇ Exportar index.html'; }, 1500);
+  showToast('index.html descargado. ¡Súbelo a GitHub!','ok');
 }
 
 // ── INIT ───────────────────────────────────────────────────────────────
