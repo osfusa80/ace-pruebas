@@ -144,7 +144,34 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 .pill-worst{background:rgba(255,68,68,0.12);color:var(--red);border:1px solid rgba(255,68,68,0.3);}
 .pill-gap{background:var(--surface2);color:var(--muted2);border:1px solid var(--border);}
 
-/* SECTORS GRID */
+/* DRIVER SELECTOR */
+.driver-selector-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.driver-selector-bar label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);white-space:nowrap;}
+.driver-select{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:500;padding:8px 12px;border-radius:6px;cursor:pointer;flex:1;min-width:160px;}
+.driver-select:focus{outline:none;border-color:var(--accent);}
+.vs-badge{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;}
+.compare-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem;}
+.compare-panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;overflow:hidden;}
+.compare-panel-header{display:flex;align-items:center;gap:8px;margin-bottom:1rem;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.compare-panel-name{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;}
+.compare-panel-best{font-size:12px;color:var(--muted);margin-left:auto;}
+.compare-mini-metric{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;}
+.cmm-item{text-align:center;background:var(--surface2);border-radius:6px;padding:8px 4px;}
+.cmm-value{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;line-height:1;}
+.cmm-label{font-size:9px;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-top:3px;}
+.sector-diff-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.sector-diff-row:last-child{border-bottom:none;}
+.sector-diff-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);width:60px;}
+.sector-val{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;}
+.sector-winner{color:var(--green);}
+.sector-loser{color:var(--muted2);}
+.diff-pill{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;}
+.diff-faster{background:rgba(0,230,118,0.15);color:var(--green);}
+.diff-slower{background:rgba(255,68,68,0.1);color:var(--red);}
+.diff-equal{background:var(--surface2);color:var(--muted);}
+@media(max-width:640px){.compare-panels{grid-template-columns:1fr;}}
+
+/* DRIVER SELECTOR */
 .sectors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem;}
 .sector-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;}
 .sector-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;}
@@ -563,14 +590,14 @@ function renderDetail(session){
 
   document.getElementById('detail-content').innerHTML = html;
 
-  // Render chart
+  // Render chart / panels
   setTimeout(()=>{
     if(lapChart){ lapChart.destroy(); lapChart = null; }
-    const canvas = document.getElementById('lapChartDetail');
-    if(!canvas) return;
     if(dkeys.length > 1){
-      renderMultiChart(session, dkeys, canvas);
+      updateDriverPanels();
     } else {
+      const canvas = document.getElementById('lapChartDetail');
+      if(!canvas) return;
       const dk = dkeys[0];
       const driverLaps = session.laps.filter(l=>keyEq(l.driver_key, dk));
       renderSingleChart(driverLaps, canvas);
@@ -672,8 +699,13 @@ function renderMultiDriver(session, dkeys, bests, fastestTime){
     return (bests[ka]?.time||999999)-(bests[kb]?.time||999999);
   });
 
+  const driverOptions = sortedDrivers.map((dk,i)=>{
+    const k = dk.a+'_'+dk.b;
+    return `<option value="${k}">${getDriverFullName(session,dk)}</option>`;
+  }).join('');
+
   let html = `
-    <div class="section-header"><div class="section-title">Comparativa de pilotos</div><span style="font-size:11px;color:var(--muted);">Pulsa en un piloto para ver su detalle</span></div>
+    <div class="section-header"><div class="section-title">Comparativa de pilotos</div></div>
     <div class="compare-table"><table>
       <thead><tr><th>P</th><th>Piloto</th><th>Mejor vuelta</th><th>Diferencia</th><th>Vueltas</th><th>Mejor S1</th><th>Mejor S2</th><th>Mejor S3</th></tr></thead>
       <tbody>${sortedDrivers.map((dk,i)=>{
@@ -695,41 +727,24 @@ function renderMultiDriver(session, dkeys, bests, fastestTime){
           <td>${msToTime(bs1)}</td><td>${msToTime(bs2)}</td><td>${msToTime(bs3)}</td>
         </tr>`;
       }).join('')}</tbody>
-    </table></div>`;
+    </table></div>
 
-  // Per-driver lap tables
-  html += `<div class="section-header"><div class="section-title">Vueltas por piloto</div></div>`;
-  sortedDrivers.forEach((dk,di)=>{
-    const driverLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
-    if(!driverLaps.length) return;
-    const times = driverLaps.map(l=>l.time);
-    const bestT = Math.min(...times);
-    const color = driverColor(di);
-    const dkEncoded = encodeURIComponent(JSON.stringify(dk));
-    html += `<div style="margin-bottom:1.5rem;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;" onclick="openDriverDetail('${dkEncoded}')" title="Ver detalle completo">
-        <div style="width:8px;height:8px;border-radius:50%;background:${color}"></div>
-        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:${color}">${getDriverFullName(session,dk)}</span>
-        <span style="font-size:12px;color:var(--muted)">Mejor: ${msToTime(bestT)}</span>
-        <span style="font-size:11px;color:var(--muted);margin-left:4px;opacity:0.6;">· pulsa para ver detalle completo ›</span>
-      </div>
-      <div class="lap-table-wrap"><table>
-        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
-        <tbody>${driverLaps.map((lap,i)=>{
-          const isBest=lap.time===bestT;
-          const gap=lap.time-bestT;
-          return `<tr class="${isBest?'row-best':''}">
-            <td style="color:var(--muted);font-size:13px;">${i+1}</td>
-            <td style="color:${isBest?'var(--green)':'var(--text)'}">${msToTime(lap.time)}</td>
-            <td>${msToTime(lap.split[0])}</td><td>${msToTime(lap.split[1])}</td><td>${msToTime(lap.split[2])}</td>
-            <td>${isBest?'<span class="pill pill-best">Mejor</span>':gap>0?`<span class="pill pill-gap">+${(gap/1000).toFixed(3)}s</span>`:''}</td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table></div>
-    </div>`;
-  });
+    <div class="section-header" style="margin-top:0.5rem;">
+      <div class="section-title">Análisis por piloto</div>
+    </div>
+    <div class="driver-selector-bar">
+      <label>Piloto</label>
+      <select class="driver-select" id="driverSelectA" onchange="updateDriverPanels()">
+        ${driverOptions}
+      </select>
+      <span class="vs-badge">VS</span>
+      <select class="driver-select" id="driverSelectB" onchange="updateDriverPanels()">
+        <option value="">— Sin comparar —</option>
+        ${driverOptions}
+      </select>
+    </div>
+    <div id="driverPanelsArea"></div>
 
-  html += `
     <div class="section-header"><div class="section-title">Tiempos por vuelta</div></div>
     <div class="chart-card">
       <div style="position:relative;width:100%;height:240px;"><canvas id="lapChartDetail" role="img" aria-label="Comparativa tiempos">Tiempos</canvas></div>
@@ -737,6 +752,214 @@ function renderMultiDriver(session, dkeys, bests, fastestTime){
     </div>`;
 
   return html;
+}
+
+function updateDriverPanels(){
+  if(lapChart){ lapChart.destroy(); lapChart=null; }
+  const session = currentSession;
+  const dkeys = allDriverKeys(session);
+  const bests = bestLapByDriver(session);
+  const allTimes = Object.values(bests).map(l=>l.time);
+  const fastestTime = Math.min(...allTimes);
+
+  const selA = document.getElementById('driverSelectA');
+  const selB = document.getElementById('driverSelectB');
+  if(!selA) return;
+
+  const keyA = selA.value;
+  const keyB = selB ? selB.value : '';
+
+  const findDk = k => dkeys.find(d=>(d.a+'_'+d.b)===k);
+  const dkA = findDk(keyA);
+
+  const area = document.getElementById('driverPanelsArea');
+  if(!area) return;
+
+  if(!keyB || !findDk(keyB)){
+    // Single driver view
+    const lapsA = session.laps.filter(l=>keyEq(l.driver_key,dkA));
+    area.innerHTML = buildSinglePanel(session, dkA, lapsA, dkeys, fastestTime);
+    setTimeout(()=>{
+      if(lapChart){lapChart.destroy();lapChart=null;}
+      const canvas = document.getElementById('lapChartDetail');
+      if(canvas) renderSingleChart(lapsA, canvas);
+    },50);
+  } else {
+    // Two driver comparison
+    const dkB = findDk(keyB);
+    const lapsA = session.laps.filter(l=>keyEq(l.driver_key,dkA));
+    const lapsB = session.laps.filter(l=>keyEq(l.driver_key,dkB));
+    area.innerHTML = buildComparePanel(session, dkA, lapsA, dkB, lapsB, dkeys, fastestTime);
+    setTimeout(()=>{
+      if(lapChart){lapChart.destroy();lapChart=null;}
+      const canvas = document.getElementById('lapChartDetail');
+      if(canvas) renderTwoDriverChart(lapsA, lapsB,
+        getDriverName(session,dkA), getDriverName(session,dkB),
+        driverColor(dkeys.findIndex(d=>keyEq(d,dkA))),
+        driverColor(dkeys.findIndex(d=>keyEq(d,dkB))),
+        canvas);
+    },50);
+  }
+}
+
+function buildSinglePanel(session, dk, laps, dkeys, fastestTime){
+  if(!laps.length) return '';
+  const times = laps.map(l=>l.time);
+  const bestT = Math.min(...times);
+  const worstT = Math.max(...times);
+  const avgT = Math.round(times.reduce((a,b)=>a+b,0)/times.length);
+  const s1s=laps.map(l=>l.split[0]),s2s=laps.map(l=>l.split[1]),s3s=laps.map(l=>l.split[2]);
+  const bs1=Math.min(...s1s),bs2=Math.min(...s2s),bs3=Math.min(...s3s);
+  const ws1=Math.max(...s1s),ws2=Math.max(...s2s),ws3=Math.max(...s3s);
+  const di = dkeys.findIndex(d=>keyEq(d,dk));
+  const color = driverColor(di>=0?di:0);
+  const gap = bestT - Math.min(...Object.values(bestLapByDriver(session)).map(l=>l.time));
+
+  return `
+    <div class="metrics-row">
+      <div class="metric-card"><div class="metric-label">Mejor vuelta</div><div class="metric-value c-green">${msToTime(bestT)}</div><div class="metric-sub">${gap===0?'Pole / más rápido':'+'+((gap)/1000).toFixed(3)+'s vs pole'}</div></div>
+      <div class="metric-card"><div class="metric-label">Peor vuelta</div><div class="metric-value c-red">${msToTime(worstT)}</div><div class="metric-sub">Vuelta ${times.indexOf(worstT)+1}</div></div>
+      <div class="metric-card"><div class="metric-label">Promedio</div><div class="metric-value c-accent">${msToTime(avgT)}</div><div class="metric-sub">${laps.length} vueltas</div></div>
+      <div class="metric-card"><div class="metric-label">Diferencia</div><div class="metric-value">+${((worstT-bestT)/1000).toFixed(3)}s</div><div class="metric-sub">mejor vs peor</div></div>
+    </div>
+    <div class="section-header"><div class="section-title">Vueltas</div></div>
+    <div class="lap-table-wrap"><table>
+      <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+      <tbody>${laps.map((lap,i)=>{
+        const isBest=lap.time===bestT,isWorst=lap.time===worstT;
+        const g=lap.time-bestT;
+        return `<tr class="${isBest?'row-best':isWorst?'row-worst':''}">
+          <td style="color:var(--muted);font-size:13px;">${i+1}</td>
+          <td style="color:${isBest?'var(--green)':isWorst?'var(--red)':'var(--text)'}">${msToTime(lap.time)}</td>
+          <td class="${lap.split[0]===bs1?'s-best':lap.split[0]===ws1?'s-worst':''}">${msToTime(lap.split[0])}</td>
+          <td class="${lap.split[1]===bs2?'s-best':lap.split[1]===ws2?'s-worst':''}">${msToTime(lap.split[1])}</td>
+          <td class="${lap.split[2]===bs3?'s-best':lap.split[2]===ws3?'s-worst':''}">${msToTime(lap.split[2])}</td>
+          <td>${isBest?'<span class="pill pill-best">Mejor</span>':isWorst?'<span class="pill pill-worst">Peor</span>':g>0?`<span class="pill pill-gap">+${(g/1000).toFixed(3)}s</span>`:''}</td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>
+    <div class="section-header"><div class="section-title">Mejores sectores</div></div>
+    <div class="sectors-grid">
+      ${[['Sector 1',bs1,ws1,s1s,0],['Sector 2',bs2,ws2,s2s,1],['Sector 3',bs3,ws3,s3s,2]].map(([label,best,worst,arr,si])=>{
+        const bl=laps.find(l=>l.split[si]===best);
+        const bi=laps.indexOf(bl)+1;
+        const pct=Math.round(worst===best?100:(best/worst)*100);
+        return `<div class="sector-card">
+          <div class="sector-label">${label}</div>
+          <div class="sector-time">${msToTime(best)}</div>
+          <div class="sector-lap">Vuelta ${bi}</div>
+          <div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
+          <div class="sector-range"><span>${msToTime(best)}</span><span>${msToTime(worst)}</span></div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function buildComparePanel(session, dkA, lapsA, dkB, lapsB, dkeys, fastestTime){
+  const diA=dkeys.findIndex(d=>keyEq(d,dkA)), diB=dkeys.findIndex(d=>keyEq(d,dkB));
+  const colorA=driverColor(diA>=0?diA:0), colorB=driverColor(diB>=0?diB:1);
+  const nameA=getDriverFullName(session,dkA), nameB=getDriverFullName(session,dkB);
+  const bestA=Math.min(...lapsA.map(l=>l.time)), bestB=Math.min(...lapsB.map(l=>l.time));
+  const avgA=Math.round(lapsA.reduce((s,l)=>s+l.time,0)/lapsA.length);
+  const avgB=Math.round(lapsB.reduce((s,l)=>s+l.time,0)/lapsB.length);
+  const bs1A=Math.min(...lapsA.map(l=>l.split[0])),bs2A=Math.min(...lapsA.map(l=>l.split[1])),bs3A=Math.min(...lapsA.map(l=>l.split[2]));
+  const bs1B=Math.min(...lapsB.map(l=>l.split[0])),bs2B=Math.min(...lapsB.map(l=>l.split[1])),bs3B=Math.min(...lapsB.map(l=>l.split[2]));
+
+  const diffPill=(a,b)=>{
+    const d=a-b;
+    if(Math.abs(d)<10) return `<span class="diff-pill diff-equal">=</span>`;
+    return d<0
+      ? `<span class="diff-pill diff-faster">-${(Math.abs(d)/1000).toFixed(3)}s</span>`
+      : `<span class="diff-pill diff-slower">+${(d/1000).toFixed(3)}s</span>`;
+  };
+
+  const panelHTML=(name,color,laps,best,avg,bs1,bs2,bs3,oppBest,oppAvg,oppBs1,oppBs2,oppBs3)=>{
+    const worstT=Math.max(...laps.map(l=>l.time));
+    return `<div class="compare-panel" style="border-top:3px solid ${color};">
+      <div class="compare-panel-header">
+        <div style="width:10px;height:10px;border-radius:50%;background:${color}"></div>
+        <div class="compare-panel-name" style="color:${color}">${name}</div>
+        <div class="compare-panel-best">${laps.length} vueltas</div>
+      </div>
+      <div class="compare-mini-metric">
+        <div class="cmm-item"><div class="cmm-value c-green">${msToTime(best)}</div><div class="cmm-label">Mejor</div></div>
+        <div class="cmm-item"><div class="cmm-value c-accent">${msToTime(avg)}</div><div class="cmm-label">Promedio</div></div>
+        <div class="cmm-item"><div class="cmm-value c-red">${msToTime(worstT)}</div><div class="cmm-label">Peor</div></div>
+      </div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px 12px;margin-bottom:1rem;">
+        <div class="sector-diff-row">
+          <span class="sector-diff-label">Mejor vta</span>
+          <span class="sector-val ${best<=oppBest?'sector-winner':'sector-loser'}">${msToTime(best)}</span>
+          ${diffPill(best,oppBest)}
+        </div>
+        <div class="sector-diff-row">
+          <span class="sector-diff-label">Promedio</span>
+          <span class="sector-val ${avg<=oppAvg?'sector-winner':'sector-loser'}">${msToTime(avg)}</span>
+          ${diffPill(avg,oppAvg)}
+        </div>
+        <div class="sector-diff-row">
+          <span class="sector-diff-label">S1</span>
+          <span class="sector-val ${bs1<=oppBs1?'sector-winner':'sector-loser'}">${msToTime(bs1)}</span>
+          ${diffPill(bs1,oppBs1)}
+        </div>
+        <div class="sector-diff-row">
+          <span class="sector-diff-label">S2</span>
+          <span class="sector-val ${bs2<=oppBs2?'sector-winner':'sector-loser'}">${msToTime(bs2)}</span>
+          ${diffPill(bs2,oppBs2)}
+        </div>
+        <div class="sector-diff-row">
+          <span class="sector-diff-label">S3</span>
+          <span class="sector-val ${bs3<=oppBs3?'sector-winner':'sector-loser'}">${msToTime(bs3)}</span>
+          ${diffPill(bs3,oppBs3)}
+        </div>
+      </div>
+      <div class="lap-table-wrap" style="margin-bottom:0;"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th></tr></thead>
+        <tbody>${laps.map((lap,i)=>{
+          const isBest=lap.time===best;
+          const g=lap.time-best;
+          return `<tr class="${isBest?'row-best':''}">
+            <td style="color:var(--muted);font-size:12px;">${i+1}</td>
+            <td style="color:${isBest?'var(--green)':'var(--text)'};">${msToTime(lap.time)}</td>
+            <td>${msToTime(lap.split[0])}</td>
+            <td>${msToTime(lap.split[1])}</td>
+            <td>${msToTime(lap.split[2])}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </div>`;
+  };
+
+  return `<div class="compare-panels">
+    ${panelHTML(nameA,colorA,lapsA,bestA,avgA,bs1A,bs2A,bs3A,bestB,avgB,bs1B,bs2B,bs3B)}
+    ${panelHTML(nameB,colorB,lapsB,bestB,avgB,bs1B,bs2B,bs3B,bestA,avgA,bs1A,bs2A,bs3A)}
+  </div>`;
+}
+
+function renderTwoDriverChart(lapsA, lapsB, nameA, nameB, colorA, colorB, canvas){
+  const maxL = Math.max(lapsA.length, lapsB.length);
+  lapChart = new Chart(canvas,{
+    type:'line',
+    data:{
+      labels:Array.from({length:maxL},(_,i)=>'V'+(i+1)),
+      datasets:[
+        {label:nameA,data:lapsA.map(l=>+(l.time/1000).toFixed(3)),borderColor:colorA,backgroundColor:colorA+'33',tension:0.3,fill:false,pointRadius:5,borderWidth:2},
+        {label:nameB,data:lapsB.map(l=>+(l.time/1000).toFixed(3)),borderColor:colorB,backgroundColor:colorB+'33',tension:0.3,fill:false,pointRadius:5,borderWidth:2,borderDash:[6,3]},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(3)+'s'}}},
+      scales:{
+        x:{ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13}},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}},
+        y:{ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13},callback:v=>v+'s'},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}}
+      }
+    }
+  });
+  const leg=document.getElementById('multiLegend');
+  if(leg) leg.innerHTML=`
+    <div class="legend-item"><div class="legend-dot" style="background:${colorA}"></div>${nameA}</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colorB};opacity:0.7;"></div>${nameB} (comparativa)</div>`;
 }
 
 function openDriverDetail(dkEncoded){
