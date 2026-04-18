@@ -253,9 +253,9 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
     <div class="hero-title">Campeonato <span>ACE PRUEBAS</span></div>
     <div class="hero-meta" id="hero-meta">Assetto Corsa Evo · Temporada 2026</div>
     <div class="hero-stats" id="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">1</div><div class="hero-stat-label">Sesiones</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">1</div><div class="hero-stat-label">Pilotos</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">4</div><div class="hero-stat-label">Vueltas totales</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">2</div><div class="hero-stat-label">Sesiones</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">5</div><div class="hero-stat-label">Pilotos</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">29</div><div class="hero-stat-label">Vueltas totales</div></div>
     </div>
   </div>
 
@@ -272,11 +272,55 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
           <div class="driver-dot" style="background:#00d4ff"></div>
           <div><div class="driver-fullname">Oscar Funes</div><div class="driver-nick">Funes</div></div>
         </div></td>
-        <td><span class="pts">0</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:0%;background:#00d4ff"></div></div></div></td>
-        <td><span class="stat-num">0</span></td>
-        <td><span class="stat-num">0</span></td>
+        <td><span class="pts">25</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:100%;background:#00d4ff"></div></div></div></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">1</span></td>
         <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">1:43.014</td>
+      </tr><tr class="p2-row">
+        <td><span class="pos-num pos-2">2</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:#a78bfa"></div>
+          <div><div class="driver-fullname">Carlos Medina</div><div class="driver-nick">Medina</div></div>
+        </div></td>
+        <td><span class="pts">18</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:72%;background:#a78bfa"></div></div></div></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:16.890</td>
+      </tr><tr class="p3-row">
+        <td><span class="pos-num pos-3">3</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:#34d399"></div>
+          <div><div class="driver-fullname">Raul Torrecilla</div><div class="driver-nick">Torreta</div></div>
+        </div></td>
+        <td><span class="pts">15</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:60%;background:#34d399"></div></div></div></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:17.820</td>
+      </tr><tr class="">
+        <td><span class="pos-num ">4</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:#fb923c"></div>
+          <div><div class="driver-fullname">Miguel Alonso</div><div class="driver-nick">Miguelin</div></div>
+        </div></td>
+        <td><span class="pts">12</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:48%;background:#fb923c"></div></div></div></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:18.780</td>
+      </tr><tr class="">
+        <td><span class="pos-num ">5</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:#f472b6"></div>
+          <div><div class="driver-fullname">Javier Ruiz</div><div class="driver-nick">JaviR</div></div>
+        </div></td>
+        <td><span class="pts">10</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:40%;background:#f472b6"></div></div></div></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:20.200</td>
       </tr></tbody>
   </table></div>
 </div>
@@ -284,23 +328,388 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 <!-- SESSIONS PAGE -->
 <div class="page" id="page-sessions">
   <div class="section-header"><div class="section-title">Todas las sesiones</div></div>
-  <div class="sessions-grid" id="sessions-list">
-    <div class="empty-state"><p>Sin sesiones · Sube ficheros JSON desde Admin</p></div>
-  </div>
+  <div class="sessions-grid" id="sessions-list"><div class="session-card" onclick="openSession(1)">
+      <span class="session-type-badge badge-race">Race</span>
+      <div class="session-info">
+        <div class="session-track">Spa-Francorchamps <span style="color:var(--muted);font-size:14px;">· GP</span></div>
+        <div class="session-meta-row">18/4/2026 · Ferrari F2004</div>
+      </div>
+      <div class="session-right">
+        <div class="session-drivers">5</div>
+        <div class="session-drivers-label">Pilotos</div>
+      </div>
+      <span class="chevron">›</span>
+    </div><div class="session-card" onclick="openSession(0)">
+      <span class="session-type-badge badge-practice">Practice</span>
+      <div class="session-info">
+        <div class="session-track">Sebring International Raceway <span style="color:var(--muted);font-size:14px;">· GP</span></div>
+        <div class="session-meta-row">18/4/2026 · Ferrari F2004</div>
+      </div>
+      <div class="session-right">
+        <div class="session-drivers">1</div>
+        <div class="session-drivers-label">Piloto</div>
+      </div>
+      <span class="chevron">›</span>
+    </div></div>
 </div>
 
 <!-- SESSION DETAIL -->
 <div class="page" id="page-detail">
   <div class="back-btn" onclick="goBack()">← Volver a sesiones</div>
-  <div id="detail-content"></div>
+  <div id="detail-content">
+    <div class="detail-header">
+      <div>
+        <div class="detail-track">Spa-Francorchamps</div>
+        <div class="detail-sub">GP · Ferrari F2004</div>
+        <div class="detail-meta">
+          <span class="detail-tag">Race</span>
+          <span class="detail-tag">18/4/2026</span>
+          <span class="detail-tag">5 pilotos</span>
+          <span class="detail-tag">25 vueltas</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-header"><div class="section-title">Comparativa de pilotos</div></div>
+    <div class="compare-table"><table>
+      <thead><tr><th>P</th><th>Piloto</th><th>Mejor vuelta</th><th>Diferencia</th><th>Vueltas</th><th>Mejor S1</th><th>Mejor S2</th><th>Mejor S3</th></tr></thead>
+      <tbody><tr>
+          <td><span class="pos-num pos-1">1</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:#00d4ff"></div><div><div class="driver-fullname">Oscar Funes</div><div class="driver-nick">Funes</div></div></div></td>
+          <td style="color:var(--green)">2:16.102</td>
+          <td><span class="pill pill-best">Pole</span></td>
+          <td style="text-align:center">5</td>
+          <td>0:45.601</td><td>1:00.289</td><td>0:30.211</td>
+        </tr><tr>
+          <td><span class="pos-num pos-2">2</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:#a78bfa"></div><div><div class="driver-fullname">Carlos Medina</div><div class="driver-nick">Medina</div></div></div></td>
+          <td style="color:var(--text)">2:16.890</td>
+          <td><span class="pill pill-gap">+0.788s</span></td>
+          <td style="text-align:center">5</td>
+          <td>0:46.100</td><td>1:00.570</td><td>0:30.220</td>
+        </tr><tr>
+          <td><span class="pos-num pos-3">3</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:#34d399"></div><div><div class="driver-fullname">Raul Torrecilla</div><div class="driver-nick">Torreta</div></div></div></td>
+          <td style="color:var(--text)">2:17.820</td>
+          <td><span class="pill pill-gap">+1.718s</span></td>
+          <td style="text-align:center">5</td>
+          <td>0:46.500</td><td>1:01.020</td><td>0:30.300</td>
+        </tr><tr>
+          <td><span class="pos-num ">4</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:#fb923c"></div><div><div class="driver-fullname">Miguel Alonso</div><div class="driver-nick">Miguelin</div></div></div></td>
+          <td style="color:var(--text)">2:18.780</td>
+          <td><span class="pill pill-gap">+2.678s</span></td>
+          <td style="text-align:center">5</td>
+          <td>0:46.900</td><td>1:01.580</td><td>0:30.300</td>
+        </tr><tr>
+          <td><span class="pos-num ">5</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:#f472b6"></div><div><div class="driver-fullname">Javier Ruiz</div><div class="driver-nick">JaviR</div></div></div></td>
+          <td style="color:var(--text)">2:20.200</td>
+          <td><span class="pill pill-gap">+4.098s</span></td>
+          <td style="text-align:center">5</td>
+          <td>0:47.600</td><td>1:01.900</td><td>0:30.700</td>
+        </tr></tbody>
+    </table></div><div class="section-header"><div class="section-title">Vueltas por piloto</div></div><div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#00d4ff"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#00d4ff">Oscar Funes</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: 2:16.102</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody><tr class="">
+            <td style="color:var(--muted);font-size:13px;">1</td>
+            <td style="color:var(--text)">2:19.842</td>
+            <td>0:47.120</td><td>1:02.310</td><td>0:30.412</td>
+            <td><span class="pill pill-gap">+3.740s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">2</td>
+            <td style="color:var(--text)">2:17.654</td>
+            <td>0:46.230</td><td>1:01.002</td><td>0:30.422</td>
+            <td><span class="pill pill-gap">+1.552s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">3</td>
+            <td style="color:var(--text)">2:16.901</td>
+            <td>0:45.980</td><td>1:00.710</td><td>0:30.211</td>
+            <td><span class="pill pill-gap">+0.799s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">4</td>
+            <td style="color:var(--text)">2:16.544</td>
+            <td>0:45.810</td><td>1:00.522</td><td>0:30.212</td>
+            <td><span class="pill pill-gap">+0.442s</span></td>
+          </tr><tr class="row-best">
+            <td style="color:var(--muted);font-size:13px;">5</td>
+            <td style="color:var(--green)">2:16.102</td>
+            <td>0:45.601</td><td>1:00.289</td><td>0:30.212</td>
+            <td><span class="pill pill-best">Mejor</span></td>
+          </tr></tbody>
+      </table></div>
+    </div><div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#a78bfa"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#a78bfa">Carlos Medina</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: 2:16.890</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody><tr class="">
+            <td style="color:var(--muted);font-size:13px;">1</td>
+            <td style="color:var(--text)">2:20.210</td>
+            <td>0:47.450</td><td>1:02.340</td><td>0:30.420</td>
+            <td><span class="pill pill-gap">+3.320s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">2</td>
+            <td style="color:var(--text)">2:18.920</td>
+            <td>0:46.800</td><td>1:01.700</td><td>0:30.420</td>
+            <td><span class="pill pill-gap">+2.030s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">3</td>
+            <td style="color:var(--text)">2:17.801</td>
+            <td>0:46.500</td><td>1:01.001</td><td>0:30.300</td>
+            <td><span class="pill pill-gap">+0.911s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">4</td>
+            <td style="color:var(--text)">2:17.210</td>
+            <td>0:46.210</td><td>1:00.780</td><td>0:30.220</td>
+            <td><span class="pill pill-gap">+0.320s</span></td>
+          </tr><tr class="row-best">
+            <td style="color:var(--muted);font-size:13px;">5</td>
+            <td style="color:var(--green)">2:16.890</td>
+            <td>0:46.100</td><td>1:00.570</td><td>0:30.220</td>
+            <td><span class="pill pill-best">Mejor</span></td>
+          </tr></tbody>
+      </table></div>
+    </div><div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#34d399"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#34d399">Raul Torrecilla</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: 2:17.820</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody><tr class="">
+            <td style="color:var(--muted);font-size:13px;">1</td>
+            <td style="color:var(--text)">2:21.500</td>
+            <td>0:48.100</td><td>1:02.900</td><td>0:30.500</td>
+            <td><span class="pill pill-gap">+3.680s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">2</td>
+            <td style="color:var(--text)">2:19.800</td>
+            <td>0:47.200</td><td>1:02.100</td><td>0:30.500</td>
+            <td><span class="pill pill-gap">+1.980s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">3</td>
+            <td style="color:var(--text)">2:18.650</td>
+            <td>0:46.900</td><td>1:01.450</td><td>0:30.300</td>
+            <td><span class="pill pill-gap">+0.830s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">4</td>
+            <td style="color:var(--text)">2:18.100</td>
+            <td>0:46.700</td><td>1:01.100</td><td>0:30.300</td>
+            <td><span class="pill pill-gap">+0.280s</span></td>
+          </tr><tr class="row-best">
+            <td style="color:var(--muted);font-size:13px;">5</td>
+            <td style="color:var(--green)">2:17.820</td>
+            <td>0:46.500</td><td>1:01.020</td><td>0:30.300</td>
+            <td><span class="pill pill-best">Mejor</span></td>
+          </tr></tbody>
+      </table></div>
+    </div><div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#fb923c"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fb923c">Miguel Alonso</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: 2:18.780</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody><tr class="">
+            <td style="color:var(--muted);font-size:13px;">1</td>
+            <td style="color:var(--text)">2:23.200</td>
+            <td>0:48.900</td><td>1:03.800</td><td>0:30.500</td>
+            <td><span class="pill pill-gap">+4.420s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">2</td>
+            <td style="color:var(--text)">2:21.100</td>
+            <td>0:47.800</td><td>1:02.800</td><td>0:30.500</td>
+            <td><span class="pill pill-gap">+2.320s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">3</td>
+            <td style="color:var(--text)">2:19.900</td>
+            <td>0:47.300</td><td>1:02.200</td><td>0:30.400</td>
+            <td><span class="pill pill-gap">+1.120s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">4</td>
+            <td style="color:var(--text)">2:19.200</td>
+            <td>0:47.100</td><td>1:01.800</td><td>0:30.300</td>
+            <td><span class="pill pill-gap">+0.420s</span></td>
+          </tr><tr class="row-best">
+            <td style="color:var(--muted);font-size:13px;">5</td>
+            <td style="color:var(--green)">2:18.780</td>
+            <td>0:46.900</td><td>1:01.580</td><td>0:30.300</td>
+            <td><span class="pill pill-best">Mejor</span></td>
+          </tr></tbody>
+      </table></div>
+    </div><div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#f472b6"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#f472b6">Javier Ruiz</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: 2:20.200</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody><tr class="">
+            <td style="color:var(--muted);font-size:13px;">1</td>
+            <td style="color:var(--text)">2:25.100</td>
+            <td>0:49.800</td><td>1:04.500</td><td>0:30.800</td>
+            <td><span class="pill pill-gap">+4.900s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">2</td>
+            <td style="color:var(--text)">2:23.200</td>
+            <td>0:48.900</td><td>1:03.500</td><td>0:30.800</td>
+            <td><span class="pill pill-gap">+3.000s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">3</td>
+            <td style="color:var(--text)">2:21.800</td>
+            <td>0:48.200</td><td>1:02.800</td><td>0:30.800</td>
+            <td><span class="pill pill-gap">+1.600s</span></td>
+          </tr><tr class="">
+            <td style="color:var(--muted);font-size:13px;">4</td>
+            <td style="color:var(--text)">2:20.900</td>
+            <td>0:47.900</td><td>1:02.200</td><td>0:30.800</td>
+            <td><span class="pill pill-gap">+0.700s</span></td>
+          </tr><tr class="row-best">
+            <td style="color:var(--muted);font-size:13px;">5</td>
+            <td style="color:var(--green)">2:20.200</td>
+            <td>0:47.600</td><td>1:01.900</td><td>0:30.700</td>
+            <td><span class="pill pill-best">Mejor</span></td>
+          </tr></tbody>
+      </table></div>
+    </div>
+    <div class="section-header"><div class="section-title">Tiempos por vuelta</div></div>
+    <div class="chart-card">
+      <div style="position:relative;width:100%;height:240px;"><canvas id="lapChartDetail" role="img" aria-label="Comparativa tiempos" style="display: block; box-sizing: border-box; height: 240px; width: 1002px;" width="1002" height="240">Tiempos</canvas></div>
+      <div class="chart-legend" id="multiLegend">
+      <div class="legend-item"><div class="legend-dot" style="background:#00d4ff"></div>Funes</div>
+    
+      <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>Medina</div>
+    
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Torreta</div>
+    
+      <div class="legend-item"><div class="legend-dot" style="background:#fb923c"></div>Miguelin</div>
+    
+      <div class="legend-item"><div class="legend-dot" style="background:#f472b6"></div>JaviR</div>
+    </div>
+    </div></div>
 </div>
 
 <!-- STATS PAGE -->
 <div class="page" id="page-stats">
   <div class="section-header"><div class="section-title">Estadísticas por piloto</div></div>
-  <div class="drivers-grid" id="drivers-grid">
-    <div class="empty-state"><p>Sin datos aún</p></div>
-  </div>
+  <div class="drivers-grid" id="drivers-grid"><div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:#00d4ff22;color:#00d4ff;border:1px solid #00d4ff44;">OF</div>
+        <div>
+          <div class="driver-card-name">Oscar Funes</div>
+          <div class="driver-card-nick">Funes</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#00d4ff;line-height:1;">25</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">1</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">1</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">9</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">1:43.014</div>
+        </div>
+      </div>
+    </div><div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:#a78bfa22;color:#a78bfa;border:1px solid #a78bfa44;">CM</div>
+        <div>
+          <div class="driver-card-name">Carlos Medina</div>
+          <div class="driver-card-nick">Medina</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#a78bfa;line-height:1;">18</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">0</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">1</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">5</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">2:16.890</div>
+        </div>
+      </div>
+    </div><div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:#34d39922;color:#34d399;border:1px solid #34d39944;">RT</div>
+        <div>
+          <div class="driver-card-name">Raul Torrecilla</div>
+          <div class="driver-card-nick">Torreta</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#34d399;line-height:1;">15</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">0</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">1</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">5</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">2:17.820</div>
+        </div>
+      </div>
+    </div><div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:#fb923c22;color:#fb923c;border:1px solid #fb923c44;">MA</div>
+        <div>
+          <div class="driver-card-name">Miguel Alonso</div>
+          <div class="driver-card-nick">Miguelin</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#fb923c;line-height:1;">12</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">0</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">0</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">5</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">2:18.780</div>
+        </div>
+      </div>
+    </div><div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:#f472b622;color:#f472b6;border:1px solid #f472b644;">JR</div>
+        <div>
+          <div class="driver-card-name">Javier Ruiz</div>
+          <div class="driver-card-nick">JaviR</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#f472b6;line-height:1;">10</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">0</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">0</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">5</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">2:20.200</div>
+        </div>
+      </div>
+    </div></div>
 </div>
 
 <!-- ADMIN PAGE -->
@@ -322,6 +731,12 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
         <span style="font-size:12px;color:var(--muted);margin-left:10px;">Practice · 18/4/2026 · 1 piloto</span>
       </div>
       <button class="del-btn" onclick="deleteSession(0)">Eliminar</button>
+    </div><div class="session-admin-row">
+      <div>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Spa-Francorchamps · GP</span>
+        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Race · 18/4/2026 · 5 pilotos</span>
+      </div>
+      <button class="del-btn" onclick="deleteSession(1)">Eliminar</button>
     </div></div></div>
   </div>
   <div class="admin-section">
@@ -339,7 +754,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">Sesión cargada: Spa-Francorchamps</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -930,7 +1345,7 @@ renderChampionship();`
 // ── INIT ───────────────────────────────────────────────────────────────
 // Data pre-loaded at export time
 (function(){
-  try{ localStorage.setItem('ace_pruebas_sessions', "[{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Practice\",\"session_type\":\"Practice\",\"track_name\":\"Sebring International Raceway\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13996418724651682993\",\"b\":\"13235391879167654699\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/TimeAttack.Specialization\",\"base\":{\"session_duration_ms\":600000,\"session_laps\":0,\"maximum_session_overtime_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"speeding\":{\"required_speed\":60,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_MP_TeleportToPit\",\"penalty_time_ms\":10000,\"laps_for_clearing\":0},\"weight\":70}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[0],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":108489,\"split\":[31740,48981,27768],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":126399,\"split\":[52548,46548,27303],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":103014,\"split\":[30144,46101,26769],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":131085,\"split\":[55425,48603,27057],\"flags\":1}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776510586986,\"_filename\":\"results_20260418_102628_practice.json\"}]"); }catch(e){}
+  try{ localStorage.setItem('ace_pruebas_sessions', "[{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Practice\",\"session_type\":\"Practice\",\"track_name\":\"Sebring International Raceway\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13996418724651682993\",\"b\":\"13235391879167654699\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/TimeAttack.Specialization\",\"base\":{\"session_duration_ms\":600000,\"session_laps\":0,\"maximum_session_overtime_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"speeding\":{\"required_speed\":60,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_MP_TeleportToPit\",\"penalty_time_ms\":10000,\"laps_for_clearing\":0},\"weight\":70}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[0],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":108489,\"split\":[31740,48981,27768],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":126399,\"split\":[52548,46548,27303],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":103014,\"split\":[30144,46101,26769],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":131085,\"split\":[55425,48603,27057],\"flags\":1}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776510586986,\"_filename\":\"results_20260418_102628_practice.json\"},{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Race\",\"session_type\":\"Race\",\"track_name\":\"Spa-Francorchamps\",\"track_layout_name\":\"GP\",\"event_index\":1,\"session_index\":2,\"is_static\":false,\"is_completed\":true,\"car_points\":[],\"driver_points\":[],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"first_name\":\"Carlos\",\"last_name\":\"Medina\",\"nickname\":\"Medina\",\"player_id\":\"76561199000000001\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"first_name\":\"Raul\",\"last_name\":\"Torrecilla\",\"nickname\":\"Torreta\",\"player_id\":\"76561199000000002\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"first_name\":\"Miguel\",\"last_name\":\"Alonso\",\"nickname\":\"Miguelin\",\"player_id\":\"76561199000000003\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"first_name\":\"Javier\",\"last_name\":\"Ruiz\",\"nickname\":\"JaviR\",\"player_id\":\"76561199000000004\",\"nation\":\"ESP\"}],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":1},{\"car_id\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":7},{\"car_id\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":11},{\"car_id\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":3},{\"car_id\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":22}],\"car_standings\":[],\"driver_standings\":[],\"time_standings\":[],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":139842,\"split\":[47120,62310,30412],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":137654,\"split\":[46230,61002,30422],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136901,\"split\":[45980,60710,30211],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136544,\"split\":[45810,60522,30212],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136102,\"split\":[45601,60289,30212],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":140210,\"split\":[47450,62340,30420],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":138920,\"split\":[46800,61700,30420],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":137801,\"split\":[46500,61001,30300],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":137210,\"split\":[46210,60780,30220],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":136890,\"split\":[46100,60570,30220],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":141500,\"split\":[48100,62900,30500],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":139800,\"split\":[47200,62100,30500],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":138650,\"split\":[46900,61450,30300],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":138100,\"split\":[46700,61100,30300],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":137820,\"split\":[46500,61020,30300],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":143200,\"split\":[48900,63800,30500],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":141100,\"split\":[47800,62800,30500],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":139900,\"split\":[47300,62200,30400],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":139200,\"split\":[47100,61800,30300],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":138780,\"split\":[46900,61580,30300],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":145100,\"split\":[49800,64500,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":143200,\"split\":[48900,63500,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":141800,\"split\":[48200,62800,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":140900,\"split\":[47900,62200,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":140200,\"split\":[47600,61900,30700],\"flags\":1}],\"_uploaded\":1776511522589,\"_filename\":\"results_simulado_carrera.json\"}]"); }catch(e){}
 })();
 loadFromStorage();
 renderChampionship();
