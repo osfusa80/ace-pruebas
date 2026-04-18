@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campeonato ACE PRUEBAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07090f;
+  --surface:#0e1117;
+  --surface2:#151b26;
+  --surface3:#1c2433;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.13);
+  --text:#e8eaf0;
+  --muted:#5a6480;
+  --muted2:#8490b0;
+  --accent:#00d4ff;
+  --accent2:#0099bb;
+  --gold:#ffd700;
+  --silver:#c0c8d8;
+  --bronze:#cd7f32;
+  --green:#00e676;
+  --red:#ff4444;
+  --orange:#ff8c00;
+  --p1:#00d4ff;--p2:#a78bfa;--p3:#34d399;--p4:#fb923c;--p5:#f472b6;
+}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;min-height:100vh;overflow-x:hidden;}
+
+/* SCANLINE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:1000;}
+
+/* NAV */
+nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:0;}
+.nav-logo{display:flex;align-items:center;gap:12px;padding:14px 0;margin-right:2rem;text-decoration:none;}
+.logo-mark{width:36px;height:36px;position:relative;flex-shrink:0;}
+.logo-mark svg{width:100%;height:100%;}
+.logo-text{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--text);letter-spacing:1px;line-height:1;}
+.logo-sub{font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;}
+.nav-tabs{display:flex;gap:0;flex:1;}
+.nav-tab{padding:16px 20px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-actions{margin-left:auto;}
+.btn-upload{background:var(--accent);color:#000;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:8px 16px;border:none;border-radius:4px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-upload:hover{background:var(--accent2);color:#fff;}
+
+/* PAGES */
+.page{display:none;max-width:1100px;margin:0 auto;padding:2rem 1.5rem;}
+.page.active{display:block;}
+
+/* HERO BANNER */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+.hero::before{content:'ACE';position:absolute;right:-20px;top:-30px;font-family:'Rajdhani',sans-serif;font-size:160px;font-weight:700;color:rgba(0,212,255,0.04);line-height:1;pointer-events:none;}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:36px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.hero-title span{color:var(--accent);}
+.hero-meta{color:var(--muted2);font-size:13px;margin-top:6px;letter-spacing:0.5px;}
+.hero-stats{display:flex;gap:2rem;margin-top:1.5rem;}
+.hero-stat{border-left:2px solid var(--accent);padding-left:12px;}
+.hero-stat-value{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--accent);line-height:1;}
+.hero-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.section-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted2);}
+.section-title::before{content:'';display:inline-block;width:3px;height:14px;background:var(--accent);margin-right:8px;vertical-align:middle;}
+
+/* CHAMPIONSHIP TABLE */
+.champ-table{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;}
+.champ-table table{width:100%;border-collapse:collapse;}
+.champ-table th{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:10px 16px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border);}
+.champ-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.champ-table tr:last-child td{border-bottom:none;}
+.champ-table tr:hover td{background:var(--surface2);}
+.champ-table tr.p1-row td:first-child{border-left:3px solid var(--gold);}
+.champ-table tr.p2-row td:first-child{border-left:3px solid var(--silver);}
+.champ-table tr.p3-row td:first-child{border-left:3px solid var(--bronze);}
+.pos-num{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;width:32px;text-align:center;}
+.pos-1{color:var(--gold);}
+.pos-2{color:var(--silver);}
+.pos-3{color:var(--bronze);}
+.driver-cell{display:flex;align-items:center;gap:10px;}
+.driver-dot{width:10px;height:10px;border-radius:50%;}
+.driver-fullname{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;}
+.driver-nick{font-size:12px;color:var(--muted);}
+.pts{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--text);}
+.pts-bar-wrap{width:120px;}
+.pts-bar{height:4px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.pts-bar-fill{height:100%;border-radius:2px;transition:width .6s ease;}
+.stat-num{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;text-align:center;}
+
+/* SESSIONS LIST */
+.sessions-grid{display:grid;gap:12px;margin-bottom:1.5rem;}
+.session-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;cursor:pointer;transition:all .2s;}
+.session-card:hover{border-color:var(--border2);background:var(--surface2);}
+.session-type-badge{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;white-space:nowrap;}
+.badge-practice{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2);}
+.badge-qualifying{background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.2);}
+.badge-race{background:rgba(255,68,68,0.1);color:var(--red);border:1px solid rgba(255,68,68,0.2);}
+.session-info{}
+.session-track{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.5px;}
+.session-meta-row{font-size:12px;color:var(--muted2);margin-top:3px;}
+.session-right{text-align:right;}
+.session-drivers{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--accent);}
+.session-drivers-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.chevron{color:var(--muted);font-size:18px;}
+
+/* SESSION DETAIL */
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--muted2);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem;transition:color .2s;}
+.back-btn:hover{color:var(--accent);}
+.detail-header{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.detail-track{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;letter-spacing:1px;}
+.detail-sub{color:var(--muted2);font-size:13px;margin-top:4px;}
+.detail-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.detail-tag{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:3px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--muted2);text-transform:uppercase;}
+
+/* METRICS ROW */
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;}
+.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:6px;}
+.metric-value{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1;}
+.metric-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.c-accent{color:var(--accent);}
+.c-green{color:var(--green);}
+.c-red{color:var(--red);}
+.c-gold{color:var(--gold);}
+
+/* LAP TABLE */
+.lap-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;}
+.lap-table-wrap table{width:100%;border-collapse:collapse;}
+.lap-table-wrap th{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:10px 14px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border);}
+.lap-table-wrap td{padding:11px 14px;border-bottom:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:500;}
+.lap-table-wrap tr:last-child td{border-bottom:none;}
+.lap-table-wrap tr.row-best{background:rgba(0,230,118,0.05);}
+.lap-table-wrap tr.row-worst{background:rgba(255,68,68,0.04);}
+.lap-table-wrap tr:hover td{background:var(--surface2);}
+.s-best{color:var(--green);}
+.s-worst{color:#ff6b6b;}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.pill-best{background:rgba(0,230,118,0.15);color:var(--green);border:1px solid rgba(0,230,118,0.3);}
+.pill-worst{background:rgba(255,68,68,0.12);color:var(--red);border:1px solid rgba(255,68,68,0.3);}
+.pill-gap{background:var(--surface2);color:var(--muted2);border:1px solid var(--border);}
+
+/* SECTORS GRID */
+.sectors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem;}
+.sector-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;}
+.sector-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;}
+.sector-time{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:var(--green);margin-bottom:2px;}
+.sector-lap{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.mini-bar{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.mini-bar-fill{height:100%;border-radius:2px;background:rgba(0,230,118,0.5);}
+.sector-range{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
+.sector-range span:last-child{color:#ff6b6b;}
+
+/* CHART */
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+.chart-legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted2);}
+.legend-dot{width:10px;height:10px;border-radius:2px;}
+
+/* STATS PAGE */
+.drivers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:1.5rem;}
+.driver-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:border-color .2s;}
+.driver-card:hover{border-color:var(--border2);}
+.driver-card-header{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.driver-avatar{width:48px;height:48px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;flex-shrink:0;}
+.driver-card-name{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.5px;}
+.driver-card-nick{font-size:12px;color:var(--muted);}
+.driver-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ds-item{text-align:center;}
+.ds-value{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;}
+.ds-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;}
+
+/* ADMIN PAGE */
+.admin-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+.admin-title{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:1rem;text-transform:uppercase;}
+.upload-zone{border:2px dashed var(--border2);border-radius:8px;padding:3rem;text-align:center;cursor:pointer;transition:all .2s;}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:rgba(0,212,255,0.05);}
+.upload-icon{font-size:36px;margin-bottom:1rem;color:var(--muted);}
+.upload-text{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;color:var(--muted2);}
+.upload-sub{font-size:12px;color:var(--muted);margin-top:6px;}
+#fileInput{display:none;}
+.sessions-admin{margin-top:1rem;}
+.session-admin-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);gap:1rem;}
+.session-admin-row:last-child{border-bottom:none;}
+.del-btn{background:rgba(255,68,68,0.1);color:var(--red);border:1px solid rgba(255,68,68,0.2);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:4px 12px;border-radius:4px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.del-btn:hover{background:rgba(255,68,68,0.2);}
+.empty-state{text-align:center;padding:3rem;color:var(--muted);}
+.empty-state p{font-family:'Rajdhani',sans-serif;font-size:16px;margin-top:8px;}
+
+/* COMPARE TABLE (multi-driver) */
+.compare-table{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;}
+.compare-table table{width:100%;border-collapse:collapse;}
+.compare-table th{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:10px 14px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border);}
+.compare-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:500;}
+.compare-table tr:last-child td{border-bottom:none;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:12px 18px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;z-index:9999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+.toast.ok{border-left:3px solid var(--green);color:var(--green);}
+.toast.err{border-left:3px solid var(--red);color:var(--red);}
+
+@media(max-width:640px){
+  .metrics-row{grid-template-columns:repeat(2,1fr);}
+  .sectors-grid{grid-template-columns:1fr;}
+  .drivers-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:1rem;}
+  .nav-tab{padding:14px 12px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="logo-mark">
+        <svg viewBox="0 0 36 36" fill="none">
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"/>
+          <circle cx="18" cy="18" r="4" fill="#00d4ff"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">ACE PRUEBAS</div>
+        <div class="logo-sub">Championship</div>
+      </div>
+    </a>
+    <div class="nav-tabs">
+      <div class="nav-tab active" data-page="championship">Campeonato</div>
+      <div class="nav-tab" data-page="sessions">Sesiones</div>
+      <div class="nav-tab" data-page="stats">Pilotos</div>
+      <div class="nav-tab" data-page="admin">Admin</div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-upload" onclick="goAdmin()">+ Subir sesión</button>
+    </div>
+  </div>
+</nav>
+
+<!-- CHAMPIONSHIP PAGE -->
+<div class="page active" id="page-championship">
+  <div class="hero">
+    <div class="hero-title">Campeonato <span>ACE PRUEBAS</span></div>
+    <div class="hero-meta" id="hero-meta">Assetto Corsa Evo · Temporada 2026</div>
+    <div class="hero-stats" id="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">0</div><div class="hero-stat-label">Sesiones</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">0</div><div class="hero-stat-label">Pilotos</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">0</div><div class="hero-stat-label">Vueltas totales</div></div>
+    </div>
+  </div>
+
+  <div class="section-header"><div class="section-title">Clasificación general</div></div>
+  <div class="champ-table" id="champ-table">
+    <div class="empty-state"><p>Sin datos · Sube sesiones desde el panel Admin</p></div>
+  </div>
+</div>
+
+<!-- SESSIONS PAGE -->
+<div class="page" id="page-sessions">
+  <div class="section-header"><div class="section-title">Todas las sesiones</div></div>
+  <div class="sessions-grid" id="sessions-list">
+    <div class="empty-state"><p>Sin sesiones · Sube ficheros JSON desde Admin</p></div>
+  </div>
+</div>
+
+<!-- SESSION DETAIL -->
+<div class="page" id="page-detail">
+  <div class="back-btn" onclick="goBack()">← Volver a sesiones</div>
+  <div id="detail-content"></div>
+</div>
+
+<!-- STATS PAGE -->
+<div class="page" id="page-stats">
+  <div class="section-header"><div class="section-title">Estadísticas por piloto</div></div>
+  <div class="drivers-grid" id="drivers-grid">
+    <div class="empty-state"><p>Sin datos aún</p></div>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div class="page" id="page-admin">
+  <div class="admin-section">
+    <div class="admin-title">Subir sesión</div>
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+      <div class="upload-icon">⬆</div>
+      <div class="upload-text">Arrastra el fichero JSON aquí o haz clic para seleccionar</div>
+      <div class="upload-sub">Ficheros de resultado de Assetto Corsa Evo (.json)</div>
+    </div>
+    <input type="file" id="fileInput" accept=".json" multiple>
+  </div>
+  <div class="admin-section">
+    <div class="admin-title">Sesiones cargadas</div>
+    <div id="admin-sessions-list"><div class="empty-state"><p>No hay sesiones cargadas</p></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'ace_pruebas_sessions';
+const POINTS = [25,18,15,12,10,8,6,4,2,1]; // F1 points system
+const DRIVER_COLORS = ['#00d4ff','#a78bfa','#34d399','#fb923c','#f472b6'];
+
+let sessions = [];
+let currentSession = null;
+let prevPage = 'sessions';
+let lapChart = null;
+
+function loadFromStorage(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) sessions = JSON.parse(raw);
+  }catch(e){ sessions=[]; }
+}
+function saveToStorage(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+}
+
+// ── UTILS ──────────────────────────────────────────────────────────────
+function msToTime(ms){
+  const m = Math.floor(ms/60000);
+  const s = Math.floor((ms%60000)/1000);
+  const ms2 = ms%1000;
+  return `${m}:${String(s).padStart(2,'0')}.${String(ms2).padStart(3,'0')}`;
+}
+function msToS(ms){ return (ms/1000).toFixed(3)+'s'; }
+function driverColor(idx){ return DRIVER_COLORS[idx % DRIVER_COLORS.length]; }
+
+function getDriverName(session, key){
+  const d = session.drivers.find(d => d.guid.a === key.a && d.guid.b === key.b);
+  return d ? (d.nickname || d.first_name + ' ' + d.last_name) : 'Desconocido';
+}
+function getDriverFullName(session, key){
+  const d = session.drivers.find(d => d.guid.a === key.a && d.guid.b === key.b);
+  return d ? (d.first_name + ' ' + d.last_name) : 'Desconocido';
+}
+function keyEq(a,b){ return a && b && a.a === b.a && a.b === b.b; }
+
+function bestLapByDriver(session){
+  const map = {};
+  for(const lap of session.laps){
+    const k = lap.driver_key.a+'_'+lap.driver_key.b;
+    if(!map[k] || lap.time < map[k].time) map[k] = lap;
+  }
+  return map;
+}
+
+function allDriverKeys(session){
+  const seen = new Set();
+  const keys = [];
+  for(const lap of session.laps){
+    const k = lap.driver_key.a+'_'+lap.driver_key.b;
+    if(!seen.has(k)){ seen.add(k); keys.push(lap.driver_key); }
+  }
+  return keys;
+}
+
+function showToast(msg, type='ok'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast '+type+' show';
+  setTimeout(()=>{ t.className='toast'; }, 2800);
+}
+
+// ── NAV ────────────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const p = tab.dataset.page;
+    switchPage(p);
+  });
+});
+
+function switchPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const tab = document.querySelector('.nav-tab[data-page="'+name+'"]');
+  if(tab) tab.classList.add('active');
+  if(name==='championship') renderChampionship();
+  if(name==='sessions') renderSessions();
+  if(name==='stats') renderStats();
+  if(name==='admin') renderAdmin();
+}
+
+function goAdmin(){ switchPage('admin'); }
+function goBack(){ switchPage(prevPage); }
+
+// ── CHAMPIONSHIP ───────────────────────────────────────────────────────
+function computeChampionship(){
+  const drivers = {};
+  for(const session of sessions){
+    if(session.session_type !== 'Race') continue;
+    const dkeys = allDriverKeys(session);
+    const bests = bestLapByDriver(session);
+    // sort by best lap for points (simplified — race position)
+    const sorted = dkeys.slice().sort((a,b)=>{
+      const ka = a.a+'_'+a.b; const kb = b.a+'_'+b.b;
+      return (bests[ka]?.time||999999) - (bests[kb]?.time||999999);
+    });
+    sorted.forEach((dk,i)=>{
+      const k = dk.a+'_'+dk.b;
+      const name = getDriverName(session, dk);
+      const full = getDriverFullName(session, dk);
+      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,bestLap:Infinity,laps:0};
+      drivers[k].points += POINTS[i] || 0;
+      if(i===0) drivers[k].wins++;
+      if(i<3) drivers[k].podiums++;
+      drivers[k].sessions++;
+    });
+  }
+  // also count practice/qualifying laps for stats
+  for(const session of sessions){
+    const dkeys = allDriverKeys(session);
+    for(const dk of dkeys){
+      const k = dk.a+'_'+dk.b;
+      const name = getDriverName(session, dk);
+      const full = getDriverFullName(session, dk);
+      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,bestLap:Infinity,laps:0};
+      const laps = session.laps.filter(l=>keyEq(l.driver_key, dk));
+      drivers[k].laps += laps.length;
+      for(const l of laps){ if(l.time < drivers[k].bestLap) drivers[k].bestLap = l.time; }
+    }
+  }
+  return Object.values(drivers).sort((a,b)=>b.points-a.points);
+}
+
+function renderChampionship(){
+  const standings = computeChampionship();
+  const totalSessions = sessions.length;
+  const totalLaps = sessions.reduce((s,sess)=>s+sess.laps.length, 0);
+  document.getElementById('hs-sessions').textContent = totalSessions;
+  document.getElementById('hs-drivers').textContent = standings.length;
+  document.getElementById('hs-laps').textContent = totalLaps;
+
+  const wrap = document.getElementById('champ-table');
+  if(!standings.length){
+    wrap.innerHTML='<div class="empty-state"><p>Sin datos · Sube sesiones de carrera desde Admin</p></div>';
+    return;
+  }
+  const maxPts = standings[0].points || 1;
+  const rowClass = ['p1-row','p2-row','p3-row'];
+  const posClass = ['pos-1','pos-2','pos-3'];
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>P</th><th>Piloto</th><th>Pts</th><th style="width:140px">Progreso</th>
+      <th style="text-align:center">Victorias</th><th style="text-align:center">Podios</th>
+      <th>Mejor vuelta</th>
+    </tr></thead>
+    <tbody>${standings.map((d,i)=>{
+      const pct = Math.round((d.points/maxPts)*100);
+      const color = driverColor(i);
+      return `<tr class="${rowClass[i]||''}">
+        <td><span class="pos-num ${posClass[i]||''}">${i+1}</span></td>
+        <td><div class="driver-cell">
+          <div class="driver-dot" style="background:${color}"></div>
+          <div><div class="driver-fullname">${d.full}</div><div class="driver-nick">${d.name}</div></div>
+        </div></td>
+        <td><span class="pts">${d.points}</span></td>
+        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:${pct}%;background:${color}"></div></div></div></td>
+        <td><span class="stat-num">${d.wins}</span></td>
+        <td><span class="stat-num">${d.podiums}</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">${d.bestLap<Infinity?msToTime(d.bestLap):'—'}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+// ── SESSIONS ───────────────────────────────────────────────────────────
+function renderSessions(){
+  const list = document.getElementById('sessions-list');
+  if(!sessions.length){
+    list.innerHTML='<div class="empty-state"><p>Sin sesiones · Sube ficheros JSON desde Admin</p></div>';
+    return;
+  }
+  const typeClass = {Practice:'badge-practice',Qualifying:'badge-qualifying',Race:'badge-race'};
+  list.innerHTML = sessions.slice().reverse().map((s,ri)=>{
+    const i = sessions.length-1-ri;
+    const dcount = allDriverKeys(s).length;
+    const type = s.session_type || s.session_name || 'Practice';
+    const date = s._uploaded ? new Date(s._uploaded).toLocaleDateString('es-ES') : '—';
+    return `<div class="session-card" onclick="openSession(${i})">
+      <span class="session-type-badge ${typeClass[type]||'badge-practice'}">${type}</span>
+      <div class="session-info">
+        <div class="session-track">${s.track_name} <span style="color:var(--muted);font-size:14px;">· ${s.track_layout_name||'GP'}</span></div>
+        <div class="session-meta-row">${date} · ${s.cars?.[0]?.model_displayname||'Desconocido'}</div>
+      </div>
+      <div class="session-right">
+        <div class="session-drivers">${dcount}</div>
+        <div class="session-drivers-label">Piloto${dcount!==1?'s':''}</div>
+      </div>
+      <span class="chevron">›</span>
+    </div>`;
+  }).join('');
+}
+
+function openSession(idx){
+  currentSession = sessions[idx];
+  prevPage = 'sessions';
+  renderDetail(currentSession);
+  switchPage('detail');
+}
+
+// ── SESSION DETAIL ─────────────────────────────────────────────────────
+function renderDetail(session){
+  const dkeys = allDriverKeys(session);
+  const bests = bestLapByDriver(session);
+  const allTimes = Object.values(bests).map(l=>l.time).filter(Boolean);
+  const fastestTime = allTimes.length ? Math.min(...allTimes) : 0;
+  const type = session.session_type || session.session_name || 'Practice';
+  const car = session.cars?.[0]?.model_displayname || '—';
+  const date = session._uploaded ? new Date(session._uploaded).toLocaleDateString('es-ES') : '—';
+
+  let html = `
+    <div class="detail-header">
+      <div>
+        <div class="detail-track">${session.track_name}</div>
+        <div class="detail-sub">${session.track_layout_name||'GP'} · ${car}</div>
+        <div class="detail-meta">
+          <span class="detail-tag">${type}</span>
+          <span class="detail-tag">${date}</span>
+          <span class="detail-tag">${dkeys.length} piloto${dkeys.length!==1?'s':''}</span>
+          <span class="detail-tag">${session.laps.length} vueltas</span>
+        </div>
+      </div>
+    </div>`;
+
+  if(dkeys.length > 1){
+    // MULTI-DRIVER VIEW
+    html += renderMultiDriver(session, dkeys, bests, fastestTime);
+  } else {
+    // SINGLE DRIVER
+    const dk = dkeys[0];
+    const driverLaps = session.laps.filter(l=>keyEq(l.driver_key, dk));
+    html += renderSingleDriver(session, dk, driverLaps);
+  }
+
+  document.getElementById('detail-content').innerHTML = html;
+
+  // Render chart
+  setTimeout(()=>{
+    if(lapChart){ lapChart.destroy(); lapChart = null; }
+    const canvas = document.getElementById('lapChartDetail');
+    if(!canvas) return;
+    if(dkeys.length > 1){
+      renderMultiChart(session, dkeys, canvas);
+    } else {
+      const dk = dkeys[0];
+      const driverLaps = session.laps.filter(l=>keyEq(l.driver_key, dk));
+      renderSingleChart(driverLaps, canvas);
+    }
+  }, 100);
+}
+
+function renderSingleDriver(session, dk, laps){
+  const times = laps.map(l=>l.time);
+  const bestTime = Math.min(...times);
+  const worstTime = Math.max(...times);
+  const avgTime = Math.round(times.reduce((a,b)=>a+b,0)/times.length);
+  const bestLap = laps.find(l=>l.time===bestTime);
+  const worstLap = laps.find(l=>l.time===worstTime);
+  const bestIdx = laps.indexOf(bestLap);
+  const worstIdx = laps.indexOf(worstLap);
+
+  // Best splits
+  const s1s = laps.map(l=>l.split[0]), s2s = laps.map(l=>l.split[1]), s3s = laps.map(l=>l.split[2]);
+  const bs1=Math.min(...s1s),bs2=Math.min(...s2s),bs3=Math.min(...s3s);
+  const ws1=Math.max(...s1s),ws2=Math.max(...s2s),ws3=Math.max(...s3s);
+
+  let html = `
+    <div class="metrics-row">
+      <div class="metric-card"><div class="metric-label">Mejor vuelta</div><div class="metric-value c-green">${msToTime(bestTime)}</div><div class="metric-sub">Vuelta ${bestIdx+1}</div></div>
+      <div class="metric-card"><div class="metric-label">Peor vuelta</div><div class="metric-value c-red">${msToTime(worstTime)}</div><div class="metric-sub">Vuelta ${worstIdx+1}</div></div>
+      <div class="metric-card"><div class="metric-label">Promedio</div><div class="metric-value c-accent">${msToTime(avgTime)}</div><div class="metric-sub">${laps.length} vueltas</div></div>
+      <div class="metric-card"><div class="metric-label">Diferencia</div><div class="metric-value">+${((worstTime-bestTime)/1000).toFixed(3)}s</div><div class="metric-sub">mejor vs peor</div></div>
+    </div>
+    <div class="section-header"><div class="section-title">Vueltas</div></div>
+    <div class="lap-table-wrap"><table>
+      <thead><tr><th>Vta.</th><th>Tiempo</th><th>Sector 1</th><th>Sector 2</th><th>Sector 3</th><th></th></tr></thead>
+      <tbody>${laps.map((lap,i)=>{
+        const isBest = lap.time===bestTime;
+        const isWorst = lap.time===worstTime;
+        const gap = lap.time-bestTime;
+        return `<tr class="${isBest?'row-best':isWorst?'row-worst':''}">
+          <td style="color:var(--muted);font-size:13px;">${i+1}</td>
+          <td style="color:${isBest?'var(--green)':isWorst?'var(--red)':'var(--text)'}">${msToTime(lap.time)}</td>
+          <td class="${lap.split[0]===bs1?'s-best':lap.split[0]===ws1?'s-worst':''}">${msToTime(lap.split[0])}</td>
+          <td class="${lap.split[1]===bs2?'s-best':lap.split[1]===ws2?'s-worst':''}">${msToTime(lap.split[1])}</td>
+          <td class="${lap.split[2]===bs3?'s-best':lap.split[2]===ws3?'s-worst':''}">${msToTime(lap.split[2])}</td>
+          <td>${isBest?'<span class="pill pill-best">Mejor</span>':isWorst?'<span class="pill pill-worst">Peor</span>':gap>0?`<span class="pill pill-gap">+${(gap/1000).toFixed(3)}s</span>`:''}</td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>
+    <div class="section-header"><div class="section-title">Mejores sectores</div></div>
+    <div class="sectors-grid">
+      ${[['Sector 1',bs1,ws1,s1s],['Sector 2',bs2,ws2,s2s],['Sector 3',bs3,ws3,s3s]].map(([label,best,worst,arr])=>{
+        const bl = laps.find(l=>l.split[label==='Sector 1'?0:label==='Sector 2'?1:2]===best);
+        const bi = laps.indexOf(bl)+1;
+        const pct = Math.round(((worst-best)===0?100:(best/worst)*100));
+        return `<div class="sector-card">
+          <div class="sector-label">${label}</div>
+          <div class="sector-time">${msToTime(best)}</div>
+          <div class="sector-lap">Vuelta ${bi}</div>
+          <div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
+          <div class="sector-range"><span>${msToTime(best)}</span><span>${msToTime(worst)}</span></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="section-header"><div class="section-title">Tiempos por vuelta</div></div>
+    <div class="chart-card">
+      <div style="position:relative;width:100%;height:220px;"><canvas id="lapChartDetail" role="img" aria-label="Gráfico tiempos por vuelta">Tiempos por vuelta</canvas></div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>S1</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e67e22"></div>S2</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div>S3</div>
+      </div>
+    </div>`;
+  return html;
+}
+
+function renderSingleChart(laps, canvas){
+  lapChart = new Chart(canvas, {
+    type:'bar',
+    data:{
+      labels: laps.map((_,i)=>'V'+(i+1)),
+      datasets:[
+        {label:'S1',data:laps.map(l=>+(l.split[0]/1000).toFixed(3)),backgroundColor:'#c0392b',borderRadius:3,stack:'s'},
+        {label:'S2',data:laps.map(l=>+(l.split[1]/1000).toFixed(3)),backgroundColor:'#e67e22',borderRadius:3,stack:'s'},
+        {label:'S3',data:laps.map(l=>+(l.split[2]/1000).toFixed(3)),backgroundColor:'#f39c12',borderRadius:3,stack:'s'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(3)+'s'}}},
+      scales:{
+        x:{stacked:true,ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13}},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}},
+        y:{stacked:true,ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13},callback:v=>v+'s'},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}}
+      }
+    }
+  });
+}
+
+function renderMultiDriver(session, dkeys, bests, fastestTime){
+  const sortedDrivers = dkeys.slice().sort((a,b)=>{
+    const ka=a.a+'_'+a.b,kb=b.a+'_'+b.b;
+    return (bests[ka]?.time||999999)-(bests[kb]?.time||999999);
+  });
+
+  let html = `
+    <div class="section-header"><div class="section-title">Comparativa de pilotos</div></div>
+    <div class="compare-table"><table>
+      <thead><tr><th>P</th><th>Piloto</th><th>Mejor vuelta</th><th>Diferencia</th><th>Vueltas</th><th>Mejor S1</th><th>Mejor S2</th><th>Mejor S3</th></tr></thead>
+      <tbody>${sortedDrivers.map((dk,i)=>{
+        const k = dk.a+'_'+dk.b;
+        const best = bests[k];
+        const driverLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
+        const bs1=Math.min(...driverLaps.map(l=>l.split[0]));
+        const bs2=Math.min(...driverLaps.map(l=>l.split[1]));
+        const bs3=Math.min(...driverLaps.map(l=>l.split[2]));
+        const gap = best ? best.time-fastestTime : 0;
+        const color = driverColor(i);
+        return `<tr>
+          <td><span class="pos-num ${i===0?'pos-1':i===1?'pos-2':i===2?'pos-3':''}">${i+1}</span></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:${color}"></div><div><div class="driver-fullname">${getDriverFullName(session,dk)}</div><div class="driver-nick">${getDriverName(session,dk)}</div></div></div></td>
+          <td style="color:${i===0?'var(--green)':'var(--text)'}">${best?msToTime(best.time):'—'}</td>
+          <td>${i===0?'<span class="pill pill-best">Pole</span>':`<span class="pill pill-gap">+${(gap/1000).toFixed(3)}s</span>`}</td>
+          <td style="text-align:center">${driverLaps.length}</td>
+          <td>${msToTime(bs1)}</td><td>${msToTime(bs2)}</td><td>${msToTime(bs3)}</td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>`;
+
+  // Per-driver lap tables
+  html += `<div class="section-header"><div class="section-title">Vueltas por piloto</div></div>`;
+  sortedDrivers.forEach((dk,di)=>{
+    const driverLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
+    if(!driverLaps.length) return;
+    const times = driverLaps.map(l=>l.time);
+    const bestT = Math.min(...times);
+    const color = driverColor(di);
+    html += `<div style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:${color}"></div>
+        <span style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:${color}">${getDriverFullName(session,dk)}</span>
+        <span style="font-size:12px;color:var(--muted)">Mejor: ${msToTime(bestT)}</span>
+      </div>
+      <div class="lap-table-wrap"><table>
+        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+        <tbody>${driverLaps.map((lap,i)=>{
+          const isBest=lap.time===bestT;
+          const gap=lap.time-bestT;
+          return `<tr class="${isBest?'row-best':''}">
+            <td style="color:var(--muted);font-size:13px;">${i+1}</td>
+            <td style="color:${isBest?'var(--green)':'var(--text)'}">${msToTime(lap.time)}</td>
+            <td>${msToTime(lap.split[0])}</td><td>${msToTime(lap.split[1])}</td><td>${msToTime(lap.split[2])}</td>
+            <td>${isBest?'<span class="pill pill-best">Mejor</span>':gap>0?`<span class="pill pill-gap">+${(gap/1000).toFixed(3)}s</span>`:''}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </div>`;
+  });
+
+  html += `
+    <div class="section-header"><div class="section-title">Tiempos por vuelta</div></div>
+    <div class="chart-card">
+      <div style="position:relative;width:100%;height:240px;"><canvas id="lapChartDetail" role="img" aria-label="Comparativa tiempos">Tiempos</canvas></div>
+      <div class="chart-legend" id="multiLegend"></div>
+    </div>`;
+
+  return html;
+}
+
+function renderMultiChart(session, dkeys, canvas){
+  const sortedDrivers = dkeys.slice().sort((a,b)=>{
+    const ka=a.a+'_'+a.b,kb=b.a+'_'+b.b;
+    const ba=Math.min(...session.laps.filter(l=>keyEq(l.driver_key,a)).map(l=>l.time)||[999999]);
+    const bb=Math.min(...session.laps.filter(l=>keyEq(l.driver_key,b)).map(l=>l.time)||[999999]);
+    return ba-bb;
+  });
+  const maxLaps = Math.max(...sortedDrivers.map(dk=>session.laps.filter(l=>keyEq(l.driver_key,dk)).length));
+  const colors = ['#00d4ff','#a78bfa','#34d399','#fb923c','#f472b6'];
+  const datasets = sortedDrivers.map((dk,i)=>{
+    const driverLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
+    return {
+      label: getDriverName(session,dk),
+      data: driverLaps.map(l=>+(l.time/1000).toFixed(3)),
+      borderColor: colors[i],
+      backgroundColor: colors[i]+'33',
+      tension:0.3,
+      fill:false,
+      pointRadius:5,
+      borderWidth:2,
+    };
+  });
+  lapChart = new Chart(canvas,{
+    type:'line',
+    data:{labels:Array.from({length:maxLaps},(_,i)=>'V'+(i+1)),datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(3)+'s'}}},
+      scales:{
+        x:{ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13}},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}},
+        y:{ticks:{color:'#5a6480',font:{family:'Rajdhani',size:13},callback:v=>v+'s'},grid:{color:'rgba(255,255,255,0.05)'},border:{color:'rgba(255,255,255,0.08)'}}
+      }
+    }
+  });
+  // Legend
+  const leg = document.getElementById('multiLegend');
+  if(leg){
+    leg.innerHTML = sortedDrivers.map((dk,i)=>`
+      <div class="legend-item"><div class="legend-dot" style="background:${colors[i]}"></div>${getDriverName(session,dk)}</div>
+    `).join('');
+  }
+}
+
+// ── STATS PAGE ─────────────────────────────────────────────────────────
+function renderStats(){
+  const standings = computeChampionship();
+  const grid = document.getElementById('drivers-grid');
+  if(!standings.length){
+    grid.innerHTML='<div class="empty-state"><p>Sin datos aún · Sube sesiones desde Admin</p></div>';
+    return;
+  }
+  grid.innerHTML = standings.map((d,i)=>{
+    const color = driverColor(i);
+    const initials = d.full.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="driver-card">
+      <div class="driver-card-header">
+        <div class="driver-avatar" style="background:${color}22;color:${color};border:1px solid ${color}44;">${initials}</div>
+        <div>
+          <div class="driver-card-name">${d.full}</div>
+          <div class="driver-card-nick">${d.name}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:${color};line-height:1;">${d.points}</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">puntos</div>
+        </div>
+      </div>
+      <div class="driver-stats-grid">
+        <div class="ds-item"><div class="ds-value" style="color:var(--gold)">${d.wins}</div><div class="ds-label">Victorias</div></div>
+        <div class="ds-item"><div class="ds-value">${d.podiums}</div><div class="ds-label">Podios</div></div>
+        <div class="ds-item"><div class="ds-value">${d.laps}</div><div class="ds-label">Vueltas</div></div>
+        <div class="ds-item" style="grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Mejor vuelta personal</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green)">${d.bestLap<Infinity?msToTime(d.bestLap):'—'}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── ADMIN ──────────────────────────────────────────────────────────────
+function renderAdmin(){
+  const list = document.getElementById('admin-sessions-list');
+  if(!sessions.length){
+    list.innerHTML='<div class="empty-state"><p>No hay sesiones cargadas</p></div>';
+    return;
+  }
+  list.innerHTML = `<div class="sessions-admin">${sessions.map((s,i)=>{
+    const type = s.session_type||s.session_name||'Practice';
+    const date = s._uploaded ? new Date(s._uploaded).toLocaleDateString('es-ES') : '—';
+    const dcount = allDriverKeys(s).length;
+    return `<div class="session-admin-row">
+      <div>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">${s.track_name} · ${s.track_layout_name||'GP'}</span>
+        <span style="font-size:12px;color:var(--muted);margin-left:10px;">${type} · ${date} · ${dcount} piloto${dcount!==1?'s':''}</span>
+      </div>
+      <button class="del-btn" onclick="deleteSession(${i})">Eliminar</button>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function deleteSession(idx){
+  sessions.splice(idx,1);
+  saveToStorage();
+  renderAdmin();
+  showToast('Sesión eliminada','err');
+}
+
+// ── FILE UPLOAD ────────────────────────────────────────────────────────
+const fileInput = document.getElementById('fileInput');
+const uploadZone = document.getElementById('uploadZone');
+
+fileInput.addEventListener('change', e=>{ processFiles(e.target.files); fileInput.value=''; });
+uploadZone.addEventListener('dragover', e=>{ e.preventDefault(); uploadZone.classList.add('drag'); });
+uploadZone.addEventListener('dragleave', ()=>uploadZone.classList.remove('drag'));
+uploadZone.addEventListener('drop', e=>{ e.preventDefault(); uploadZone.classList.remove('drag'); processFiles(e.dataTransfer.files); });
+
+function processFiles(files){
+  let loaded=0;
+  Array.from(files).forEach(file=>{
+    if(!file.name.endsWith('.json')){ showToast('Solo ficheros .json','err'); return; }
+    const reader = new FileReader();
+    reader.onload = e=>{
+      try{
+        const data = JSON.parse(e.target.result);
+        data._uploaded = Date.now();
+        data._filename = file.name;
+        sessions.push(data);
+        saveToStorage();
+        loaded++;
+        showToast(`Sesión cargada: ${data.track_name||file.name}`,'ok');
+        renderAdmin();
+      }catch(err){ showToast('Error al leer el fichero','err'); }
+    };
+    reader.readAsText(file);
+  });
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+loadFromStorage();
+renderChampionship();
+</script>
+</body>
+</html>
