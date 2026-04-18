@@ -718,9 +718,9 @@ function renderMultiDriver(session, dkeys, bests, fastestTime){
         const gap = best ? best.time-fastestTime : 0;
         const color = driverColor(i);
         const dkEncoded = encodeURIComponent(JSON.stringify(dk));
-        return `<tr style="cursor:pointer;" onclick="openDriverDetail('${dkEncoded}')" title="Ver detalle de ${getDriverFullName(session,dk)}">
+        return `<tr>
           <td><span class="pos-num ${i===0?'pos-1':i===1?'pos-2':i===2?'pos-3':''}">${i+1}</span></td>
-          <td><div class="driver-cell"><div class="driver-dot" style="background:${color}"></div><div><div class="driver-fullname">${getDriverFullName(session,dk)}</div><div class="driver-nick">${getDriverName(session,dk)}</div></div><span style="margin-left:8px;font-size:11px;color:var(--muted);opacity:0.6;">›</span></div></td>
+          <td><div class="driver-cell"><div class="driver-dot" style="background:${color}"></div><div><div class="driver-fullname">${getDriverFullName(session,dk)}</div><div class="driver-nick">${getDriverName(session,dk)}</div></div></div></td>
           <td style="color:${i===0?'var(--green)':'var(--text)'}">${best?msToTime(best.time):'—'}</td>
           <td>${i===0?'<span class="pill pill-best">Pole</span>':`<span class="pill pill-gap">+${(gap/1000).toFixed(3)}s</span>`}</td>
           <td style="text-align:center">${driverLaps.length}</td>
@@ -960,63 +960,6 @@ function renderTwoDriverChart(lapsA, lapsB, nameA, nameB, colorA, colorB, canvas
   if(leg) leg.innerHTML=`
     <div class="legend-item"><div class="legend-dot" style="background:${colorA}"></div>${nameA}</div>
     <div class="legend-item"><div class="legend-dot" style="background:${colorB};opacity:0.7;"></div>${nameB} (comparativa)</div>`;
-}
-
-function openDriverDetail(dkEncoded){
-  if(lapChart){ lapChart.destroy(); lapChart=null; }
-  const dk = JSON.parse(decodeURIComponent(dkEncoded));
-  const session = currentSession;
-  const driverLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
-  const fullName = getDriverFullName(session, dk);
-  const dkeys = allDriverKeys(session);
-  const bests = bestLapByDriver(session);
-  const allTimes = Object.values(bests).map(l=>l.time);
-  const fastestTime = Math.min(...allTimes);
-  const myBest = Math.min(...driverLaps.map(l=>l.time));
-  const gap = myBest - fastestTime;
-  const driverIndex = dkeys.findIndex(d=>keyEq(d,dk));
-  const color = driverColor(driverIndex>=0?driverIndex:0);
-  const type = session.session_type||session.session_name||'Practice';
-  const car = session.cars?.[0]?.model_displayname||'—';
-
-  const content = document.getElementById('detail-content');
-  content.innerHTML = `
-    <div class="back-btn" onclick="backToSession()" style="margin-bottom:1rem;">← Volver a la sesión</div>
-    <div class="detail-header" style="border-left:3px solid ${color};">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="width:12px;height:12px;border-radius:50%;background:${color};flex-shrink:0;"></div>
-          <div class="detail-track">${fullName}</div>
-        </div>
-        <div class="detail-sub">${session.track_name} · ${session.track_layout_name||'GP'} · ${car}</div>
-        <div class="detail-meta">
-          <span class="detail-tag">${type}</span>
-          <span class="detail-tag">${driverLaps.length} vueltas</span>
-          ${gap===0?'<span class="detail-tag" style="color:var(--green);border-color:rgba(0,230,118,0.3)">Pole / Mejor tiempo</span>':`<span class="detail-tag">+${(gap/1000).toFixed(3)}s vs pole</span>`}
-        </div>
-      </div>
-    </div>
-    ${renderSingleDriver(session, dk, driverLaps)}
-  `;
-
-  setTimeout(()=>{
-    if(lapChart){ lapChart.destroy(); lapChart=null; }
-    const canvas = document.getElementById('lapChartDetail');
-    if(canvas) renderSingleChart(driverLaps, canvas);
-  }, 100);
-}
-
-function backToSession(){
-  if(lapChart){ lapChart.destroy(); lapChart=null; }
-  renderDetail(currentSession);
-  setTimeout(()=>{
-    if(lapChart){ lapChart.destroy(); lapChart=null; }
-    const canvas = document.getElementById('lapChartDetail');
-    if(!canvas) return;
-    const dkeys = allDriverKeys(currentSession);
-    if(dkeys.length>1) renderMultiChart(currentSession, dkeys, canvas);
-    else renderSingleChart(currentSession.laps, canvas);
-  }, 100);
 }
 
 function renderMultiChart(session, dkeys, canvas){
