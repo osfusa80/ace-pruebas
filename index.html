@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campeonato ACE PRUEBAS</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=Exo+2:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -253,9 +254,9 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
     <a class="nav-logo" href="#">
       <div class="logo-mark">
         <svg viewBox="0 0 36 36" fill="none">
-          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00d4ff" stroke-width="1.5"></polygon>
-          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"></polygon>
-          <circle cx="18" cy="18" r="4" fill="#00d4ff"></circle>
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+          <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"/>
+          <circle cx="18" cy="18" r="4" fill="#00d4ff"/>
         </svg>
       </div>
       <div>
@@ -264,10 +265,10 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
       </div>
     </a>
     <div class="nav-tabs">
-      <div class="nav-tab" data-page="championship">Campeonato</div>
+      <div class="nav-tab active" data-page="championship">Campeonato</div>
       <div class="nav-tab" data-page="sessions">Sesiones</div>
       <div class="nav-tab" data-page="stats">Pilotos</div>
-      <div class="nav-tab active" data-page="admin">Admin</div>
+      <div class="nav-tab" data-page="admin">Admin</div>
     </div>
     <div class="nav-actions">
       <button class="btn-upload" onclick="goAdmin()">+ Subir sesión</button>
@@ -276,81 +277,21 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 </nav>
 
 <!-- CHAMPIONSHIP PAGE -->
-<div class="page" id="page-championship">
+<div class="page active" id="page-championship">
   <div class="hero">
     <div class="hero-title">Campeonato <span>ACE PRUEBAS</span></div>
     <div class="hero-meta" id="hero-meta">Assetto Corsa Evo · Temporada 2026</div>
     <div class="hero-stats" id="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">4</div><div class="hero-stat-label">Sesiones</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">5</div><div class="hero-stat-label">Pilotos</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">37</div><div class="hero-stat-label">Vueltas totales</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-sessions">0</div><div class="hero-stat-label">Sesiones</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-drivers">0</div><div class="hero-stat-label">Pilotos</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" id="hs-laps">0</div><div class="hero-stat-label">Vueltas totales</div></div>
     </div>
   </div>
 
   <div class="section-header"><div class="section-title">Clasificación general</div></div>
-  <div class="champ-table" id="champ-table"><table>
-    <thead><tr>
-      <th>P</th><th>Piloto</th><th>Pts</th><th style="width:140px">Progreso</th>
-      <th style="text-align:center">Victorias</th><th style="text-align:center">Podios</th>
-      <th>Mejor vuelta</th>
-    </tr></thead>
-    <tbody><tr class="p1-row">
-        <td><span class="pos-num pos-1">1</span></td>
-        <td><div class="driver-cell">
-          <div class="driver-dot" style="background:#00d4ff"></div>
-          <div><div class="driver-fullname">Oscar Funes</div><div class="driver-nick">Funes</div></div>
-        </div></td>
-        <td><span class="pts">50</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:100%;background:#00d4ff"></div></div></div></td>
-        <td><span class="stat-num">2</span></td>
-        <td><span class="stat-num">2</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">1:10.377</td>
-      </tr><tr class="p2-row">
-        <td><span class="pos-num pos-2">2</span></td>
-        <td><div class="driver-cell">
-          <div class="driver-dot" style="background:#a78bfa"></div>
-          <div><div class="driver-fullname">Carlos Medina</div><div class="driver-nick">Medina</div></div>
-        </div></td>
-        <td><span class="pts">18</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:36%;background:#a78bfa"></div></div></div></td>
-        <td><span class="stat-num">0</span></td>
-        <td><span class="stat-num">1</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:16.890</td>
-      </tr><tr class="p3-row">
-        <td><span class="pos-num pos-3">3</span></td>
-        <td><div class="driver-cell">
-          <div class="driver-dot" style="background:#34d399"></div>
-          <div><div class="driver-fullname">Raul Torrecilla</div><div class="driver-nick">Torreta</div></div>
-        </div></td>
-        <td><span class="pts">15</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:30%;background:#34d399"></div></div></div></td>
-        <td><span class="stat-num">0</span></td>
-        <td><span class="stat-num">1</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:17.820</td>
-      </tr><tr class="">
-        <td><span class="pos-num ">4</span></td>
-        <td><div class="driver-cell">
-          <div class="driver-dot" style="background:#fb923c"></div>
-          <div><div class="driver-fullname">Miguel Alonso</div><div class="driver-nick">Miguelin</div></div>
-        </div></td>
-        <td><span class="pts">12</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:24%;background:#fb923c"></div></div></div></td>
-        <td><span class="stat-num">0</span></td>
-        <td><span class="stat-num">0</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:18.780</td>
-      </tr><tr class="">
-        <td><span class="pos-num ">5</span></td>
-        <td><div class="driver-cell">
-          <div class="driver-dot" style="background:#f472b6"></div>
-          <div><div class="driver-fullname">Javier Ruiz</div><div class="driver-nick">JaviR</div></div>
-        </div></td>
-        <td><span class="pts">10</span></td>
-        <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:20%;background:#f472b6"></div></div></div></td>
-        <td><span class="stat-num">0</span></td>
-        <td><span class="stat-num">0</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">2:20.200</td>
-      </tr></tbody>
-  </table></div>
+  <div class="champ-table" id="champ-table">
+    <div class="empty-state"><p>Sin datos · Sube sesiones desde el panel Admin</p></div>
+  </div>
 </div>
 
 <!-- SESSIONS PAGE -->
@@ -376,7 +317,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
 </div>
 
 <!-- ADMIN PAGE -->
-<div class="page active" id="page-admin">
+<div class="page" id="page-admin">
   <div class="admin-section">
     <div class="admin-title">Subir sesión</div>
     <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
@@ -384,35 +325,11 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
       <div class="upload-text">Arrastra el fichero JSON aquí o haz clic para seleccionar</div>
       <div class="upload-sub">Ficheros de resultado de Assetto Corsa Evo (.json)</div>
     </div>
-    <input type="file" id="fileInput" accept=".json" multiple="">
+    <input type="file" id="fileInput" accept=".json" multiple>
   </div>
   <div class="admin-section">
     <div class="admin-title">Sesiones cargadas</div>
-    <div id="admin-sessions-list"><div class="sessions-admin"><div class="session-admin-row">
-      <div>
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Sebring International Raceway · GP</span>
-        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Practice · 18/4/2026 · 1 piloto</span>
-      </div>
-      <button class="del-btn" onclick="deleteSession(0)">Eliminar</button>
-    </div><div class="session-admin-row">
-      <div>
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Spa-Francorchamps · GP</span>
-        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Race · 18/4/2026 · 5 pilotos</span>
-      </div>
-      <button class="del-btn" onclick="deleteSession(1)">Eliminar</button>
-    </div><div class="session-admin-row">
-      <div>
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Brands Hatch · GP</span>
-        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Qualify · 18/4/2026 · 1 piloto</span>
-      </div>
-      <button class="del-btn" onclick="deleteSession(2)">Eliminar</button>
-    </div><div class="session-admin-row">
-      <div>
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:600;">Brands Hatch · GP</span>
-        <span style="font-size:12px;color:var(--muted);margin-left:10px;">Race · 18/4/2026 · 1 piloto</span>
-      </div>
-      <button class="del-btn" onclick="deleteSession(3)">Eliminar</button>
-    </div></div></div>
+    <div id="admin-sessions-list"><div class="empty-state"><p>No hay sesiones cargadas</p></div></div>
   </div>
   <div class="admin-section">
     <div class="admin-title">Publicar para los pilotos</div>
@@ -425,7 +342,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);position:sti
         <li><span class="step-num">4</span>En 1-2 minutos los pilotos verán los datos actualizados</li>
       </ul>
     </div>
-    <button class="btn-export" id="exportBtn" onclick="exportHTML()" disabled="">Generando...</button>
+    <button class="btn-export" id="exportBtn" onclick="exportHTML()">⬇ Exportar index.html</button>
   </div>
 </div>
 
@@ -461,6 +378,20 @@ function msToTime(ms){
   return `${m}:${String(s).padStart(2,'0')}.${String(ms2).padStart(3,'0')}`;
 }
 function msToS(ms){ return (ms/1000).toFixed(3)+'s'; }
+
+function flagIcon(flags){
+  // flags is a bitmask. Known values from ACE:
+  // 1 = valid lap (practice)
+  // 2 = valid lap (race)
+  // 4 = invalid / cut
+  // 6 = out lap / in lap or last lap
+  // 8 = yellow flag sector
+  if(flags===undefined||flags===null) return '';
+  if(flags & 4)  return `<span title="Vuelta inválida / corte" style="font-size:14px;">🟡</span>`;
+  if(flags===6)  return `<span title="Vuelta de entrada/salida" style="font-size:14px;">⬛</span>`;
+  if(flags===1||flags===2) return `<span title="Vuelta válida" style="font-size:14px;">🟢</span>`;
+  return `<span title="Flag: ${flags}" style="font-size:12px;color:var(--muted);">${flags}</span>`;
+}
 function driverColor(idx){ return DRIVER_COLORS[idx % DRIVER_COLORS.length]; }
 
 function getDriverName(session, key){
@@ -525,11 +456,11 @@ function goBack(){ switchPage(prevPage); }
 // ── CHAMPIONSHIP ───────────────────────────────────────────────────────
 function computeChampionship(){
   const drivers = {};
-  for(const session of sessions){
-    if(session.session_type !== 'Race') continue;
+  // Process race sessions in order to track position history
+  const raceSessions = sessions.filter(s=>s.session_type==='Race');
+  raceSessions.forEach((session, raceIdx)=>{
     const dkeys = allDriverKeys(session);
     const bests = bestLapByDriver(session);
-    // sort by best lap for points (simplified — race position)
     const sorted = dkeys.slice().sort((a,b)=>{
       const ka = a.a+'_'+a.b; const kb = b.a+'_'+b.b;
       return (bests[ka]?.time||999999) - (bests[kb]?.time||999999);
@@ -538,27 +469,48 @@ function computeChampionship(){
       const k = dk.a+'_'+dk.b;
       const name = getDriverName(session, dk);
       const full = getDriverFullName(session, dk);
-      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,bestLap:Infinity,laps:0};
+      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,laps:0,totalRaceLaps:0,totalRaceTime:0,prevPos:null,posHistory:[]};
       drivers[k].points += POINTS[i] || 0;
       if(i===0) drivers[k].wins++;
       if(i<3) drivers[k].podiums++;
       drivers[k].sessions++;
+      // race laps and time
+      const raceLaps = session.laps.filter(l=>keyEq(l.driver_key,dk));
+      drivers[k].totalRaceLaps += raceLaps.length;
+      // use time_standings if available for total race time
+      const tsIdx = session.driver_standings ? session.driver_standings.findIndex(ds=>ds.a===dk.a&&ds.b===dk.b) : -1;
+      if(tsIdx>=0 && session.time_standings && session.time_standings[tsIdx]){
+        drivers[k].totalRaceTime += session.time_standings[tsIdx];
+      } else {
+        drivers[k].totalRaceTime += raceLaps.reduce((s,l)=>s+l.time,0);
+      }
+      drivers[k].posHistory.push(i+1);
     });
-  }
-  // also count practice/qualifying laps for stats
+  });
+  // count all session laps
   for(const session of sessions){
     const dkeys = allDriverKeys(session);
     for(const dk of dkeys){
       const k = dk.a+'_'+dk.b;
       const name = getDriverName(session, dk);
       const full = getDriverFullName(session, dk);
-      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,bestLap:Infinity,laps:0};
+      if(!drivers[k]) drivers[k] = {key:dk,name,full,points:0,wins:0,podiums:0,sessions:0,laps:0,totalRaceLaps:0,totalRaceTime:0,prevPos:null,posHistory:[]};
       const laps = session.laps.filter(l=>keyEq(l.driver_key, dk));
       drivers[k].laps += laps.length;
-      for(const l of laps){ if(l.time < drivers[k].bestLap) drivers[k].bestLap = l.time; }
     }
   }
-  return Object.values(drivers).sort((a,b)=>b.points-a.points);
+  const sorted = Object.values(drivers).sort((a,b)=>b.points-a.points);
+  // compute trend: compare last race position vs second-to-last
+  sorted.forEach((d,i)=>{
+    const h = d.posHistory;
+    if(h.length>=2){
+      const prev = h[h.length-2], curr = h[h.length-1];
+      d.trend = prev > curr ? 'up' : prev < curr ? 'down' : 'eq';
+    } else {
+      d.trend = 'new';
+    }
+  });
+  return sorted;
 }
 
 function renderChampionship(){
@@ -577,17 +529,35 @@ function renderChampionship(){
   const maxPts = standings[0].points || 1;
   const rowClass = ['p1-row','p2-row','p3-row'];
   const posClass = ['pos-1','pos-2','pos-3'];
+
+  const trendIcon = t => {
+    if(t==='up')   return `<span style="color:var(--green);font-size:16px;" title="Subió posición">▲</span>`;
+    if(t==='down') return `<span style="color:var(--red);font-size:16px;" title="Bajó posición">▼</span>`;
+    if(t==='eq')   return `<span style="color:var(--muted);font-size:16px;" title="Misma posición">●</span>`;
+    return `<span style="color:var(--accent);font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;" title="Primera carrera">NEW</span>`;
+  };
+
+  const msToRaceTime = ms => {
+    const h = Math.floor(ms/3600000);
+    const m = Math.floor((ms%3600000)/60000);
+    const s = Math.floor((ms%60000)/1000);
+    if(h>0) return `${h}h ${m}m ${s}s`;
+    if(m>0) return `${m}m ${s}s`;
+    return `${s}s`;
+  };
+
   wrap.innerHTML = `<table>
     <thead><tr>
-      <th>P</th><th>Piloto</th><th>Pts</th><th style="width:140px">Progreso</th>
+      <th>P</th><th></th><th>Piloto</th><th>Pts</th><th style="width:120px">Progreso</th>
       <th style="text-align:center">Victorias</th><th style="text-align:center">Podios</th>
-      <th>Mejor vuelta</th>
+      <th style="text-align:center">Vueltas</th><th>Tiempo total</th>
     </tr></thead>
     <tbody>${standings.map((d,i)=>{
       const pct = Math.round((d.points/maxPts)*100);
       const color = driverColor(i);
       return `<tr class="${rowClass[i]||''}">
         <td><span class="pos-num ${posClass[i]||''}">${i+1}</span></td>
+        <td style="padding-right:0;width:24px;">${trendIcon(d.trend)}</td>
         <td><div class="driver-cell">
           <div class="driver-dot" style="background:${color}"></div>
           <div><div class="driver-fullname">${d.full}</div><div class="driver-nick">${d.name}</div></div>
@@ -596,7 +566,8 @@ function renderChampionship(){
         <td><div class="pts-bar-wrap"><div class="pts-bar"><div class="pts-bar-fill" style="width:${pct}%;background:${color}"></div></div></div></td>
         <td><span class="stat-num">${d.wins}</span></td>
         <td><span class="stat-num">${d.podiums}</span></td>
-        <td style="font-family:'Rajdhani',sans-serif;font-size:15px;">${d.bestLap<Infinity?msToTime(d.bestLap):'—'}</td>
+        <td><span class="stat-num">${d.totalRaceLaps}</span></td>
+        <td style="font-family:'Rajdhani',sans-serif;font-size:14px;">${d.totalRaceTime>0?msToRaceTime(d.totalRaceTime):'—'}</td>
       </tr>`;
     }).join('')}</tbody>
   </table>`;
@@ -712,13 +683,14 @@ function renderSingleDriver(session, dk, laps){
     </div>
     <div class="section-header"><div class="section-title">Vueltas</div></div>
     <div class="lap-table-wrap"><table>
-      <thead><tr><th>Vta.</th><th>Tiempo</th><th>Sector 1</th><th>Sector 2</th><th>Sector 3</th><th></th></tr></thead>
+      <thead><tr><th>Vta.</th><th></th><th>Tiempo</th><th>Sector 1</th><th>Sector 2</th><th>Sector 3</th><th></th></tr></thead>
       <tbody>${laps.map((lap,i)=>{
         const isBest = lap.time===bestTime;
         const isWorst = lap.time===worstTime;
         const gap = lap.time-bestTime;
         return `<tr class="${isBest?'row-best':isWorst?'row-worst':''}">
           <td style="color:var(--muted);font-size:13px;">${i+1}</td>
+          <td style="width:28px;text-align:center;">${flagIcon(lap.flags)}</td>
           <td style="color:${isBest?'var(--green)':isWorst?'var(--red)':'var(--text)'}">${msToTime(lap.time)}</td>
           <td class="${lap.split[0]===bs1?'s-best':lap.split[0]===ws1?'s-worst':''}">${msToTime(lap.split[0])}</td>
           <td class="${lap.split[1]===bs2?'s-best':lap.split[1]===ws2?'s-worst':''}">${msToTime(lap.split[1])}</td>
@@ -907,12 +879,13 @@ function buildSinglePanel(session, dk, laps, dkeys, fastestTime){
     </div>
     <div class="section-header"><div class="section-title">Vueltas</div></div>
     <div class="lap-table-wrap"><table>
-      <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
+      <thead><tr><th>Vta.</th><th></th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th><th></th></tr></thead>
       <tbody>${laps.map((lap,i)=>{
         const isBest=lap.time===bestT,isWorst=lap.time===worstT;
         const g=lap.time-bestT;
         return `<tr class="${isBest?'row-best':isWorst?'row-worst':''}">
           <td style="color:var(--muted);font-size:13px;">${i+1}</td>
+          <td style="width:28px;text-align:center;">${flagIcon(lap.flags)}</td>
           <td style="color:${isBest?'var(--green)':isWorst?'var(--red)':'var(--text)'}">${msToTime(lap.time)}</td>
           <td class="${lap.split[0]===bs1?'s-best':lap.split[0]===ws1?'s-worst':''}">${msToTime(lap.split[0])}</td>
           <td class="${lap.split[1]===bs2?'s-best':lap.split[1]===ws2?'s-worst':''}">${msToTime(lap.split[1])}</td>
@@ -997,12 +970,13 @@ function buildComparePanel(session, dkA, lapsA, dkB, lapsB, dkeys, fastestTime){
         </div>
       </div>
       <div class="lap-table-wrap" style="margin-bottom:0;"><table>
-        <thead><tr><th>Vta.</th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th></tr></thead>
+        <thead><tr><th>Vta.</th><th></th><th>Tiempo</th><th>S1</th><th>S2</th><th>S3</th></tr></thead>
         <tbody>${laps.map((lap,i)=>{
           const isBest=lap.time===best;
           const g=lap.time-best;
           return `<tr class="${isBest?'row-best':''}">
             <td style="color:var(--muted);font-size:12px;">${i+1}</td>
+            <td style="width:24px;text-align:center;">${flagIcon(lap.flags)}</td>
             <td style="color:${isBest?'var(--green)':'var(--text)'};">${msToTime(lap.time)}</td>
             <td>${msToTime(lap.split[0])}</td>
             <td>${msToTime(lap.split[1])}</td>
@@ -1189,12 +1163,30 @@ function exportHTML(){
   btn.textContent = 'Generando...';
   const reset = ()=>{ btn.disabled=false; btn.textContent='⬇ Exportar index.html'; };
 
-  try {
-    const dataJson = JSON.stringify(sessions);
-    const loader = `
+  const dataJson = JSON.stringify(sessions);
+  const loader = `\n<script>(function(){try{localStorage.setItem('ace_pruebas_sessions',${JSON.stringify(dataJson)});}catch(e){}}());<\/script>`;
 
+  fetch(window.location.href)
+    .then(r=>r.text())
+    .then(src=>{
+      // Strip any previously injected loader to avoid duplicates
+      src = src.replace(/<script>\(function\(\)\{try\{localStorage\.setItem\('ace_pruebas_sessions'[\s\S]*?<\/script>\n?/g,'');
+      src = src.replace('</body>', loader+'\n</body>');
+      const blob = new Blob([src],{type:'text/html;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href=url; a.download='index.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+      showToast('index.html descargado. ¡Súbelo a GitHub!','ok');
+    })
+    .catch(err=>showToast('Error: '+err.message,'err'))
+    .finally(()=>setTimeout(reset,800));
+}
 
-<script>
-(function(){try{localStorage.setItem('ace_pruebas_sessions',"[{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Practice\",\"session_type\":\"Practice\",\"track_name\":\"Sebring International Raceway\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13996418724651682993\",\"b\":\"13235391879167654699\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/TimeAttack.Specialization\",\"base\":{\"session_duration_ms\":600000,\"session_laps\":0,\"maximum_session_overtime_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"speeding\":{\"required_speed\":60,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_MP_TeleportToPit\",\"penalty_time_ms\":10000,\"laps_for_clearing\":0},\"weight\":70}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[0],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":108489,\"split\":[31740,48981,27768],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":126399,\"split\":[52548,46548,27303],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":103014,\"split\":[30144,46101,26769],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":131085,\"split\":[55425,48603,27057],\"flags\":1}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776510586986,\"_filename\":\"results_20260418_102628_practice.json\"},{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c23d44ac-827d-4cb1-b7ad-8eca3ce0bb2b\",\"session_name\":\"Race\",\"session_type\":\"Race\",\"track_name\":\"Spa-Francorchamps\",\"track_layout_name\":\"GP\",\"event_index\":1,\"session_index\":2,\"is_static\":false,\"is_completed\":true,\"car_points\":[],\"driver_points\":[],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"first_name\":\"Carlos\",\"last_name\":\"Medina\",\"nickname\":\"Medina\",\"player_id\":\"76561199000000001\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"first_name\":\"Raul\",\"last_name\":\"Torrecilla\",\"nickname\":\"Torreta\",\"player_id\":\"76561199000000002\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"first_name\":\"Miguel\",\"last_name\":\"Alonso\",\"nickname\":\"Miguelin\",\"player_id\":\"76561199000000003\",\"nation\":\"ESP\"},{\"guid\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"first_name\":\"Javier\",\"last_name\":\"Ruiz\",\"nickname\":\"JaviR\",\"player_id\":\"76561199000000004\",\"nation\":\"ESP\"}],\"cars\":[{\"car_id\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":1},{\"car_id\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":7},{\"car_id\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":11},{\"car_id\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":3},{\"car_id\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"model_displayname\":\"Ferrari F2004\",\"race_number\":22}],\"car_standings\":[],\"driver_standings\":[],\"time_standings\":[],\"laps\":[{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":139842,\"split\":[47120,62310,30412],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":137654,\"split\":[46230,61002,30422],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136901,\"split\":[45980,60710,30211],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136544,\"split\":[45810,60522,30212],\"flags\":1},{\"car_key\":{\"a\":\"5443239736058907307\",\"b\":\"18210838702494426514\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":136102,\"split\":[45601,60289,30212],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":140210,\"split\":[47450,62340,30420],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":138920,\"split\":[46800,61700,30420],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":137801,\"split\":[46500,61001,30300],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":137210,\"split\":[46210,60780,30220],\"flags\":1},{\"car_key\":{\"a\":\"1010101010101010101\",\"b\":\"2020202020202020202\"},\"driver_key\":{\"a\":\"1111111111111111111\",\"b\":\"2222222222222222222\"},\"time\":136890,\"split\":[46100,60570,30220],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":141500,\"split\":[48100,62900,30500],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":139800,\"split\":[47200,62100,30500],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":138650,\"split\":[46900,61450,30300],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":138100,\"split\":[46700,61100,30300],\"flags\":1},{\"car_key\":{\"a\":\"3030303030303030303\",\"b\":\"4040404040404040404\"},\"driver_key\":{\"a\":\"3333333333333333333\",\"b\":\"4444444444444444444\"},\"time\":137820,\"split\":[46500,61020,30300],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":143200,\"split\":[48900,63800,30500],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":141100,\"split\":[47800,62800,30500],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":139900,\"split\":[47300,62200,30400],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":139200,\"split\":[47100,61800,30300],\"flags\":1},{\"car_key\":{\"a\":\"5050505050505050505\",\"b\":\"6060606060606060606\"},\"driver_key\":{\"a\":\"5555555555555555555\",\"b\":\"6666666666666666666\"},\"time\":138780,\"split\":[46900,61580,30300],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":145100,\"split\":[49800,64500,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":143200,\"split\":[48900,63500,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":141800,\"split\":[48200,62800,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":140900,\"split\":[47900,62200,30800],\"flags\":1},{\"car_key\":{\"a\":\"7070707070707070707\",\"b\":\"8080808080808080808\"},\"driver_key\":{\"a\":\"7777777777777777777\",\"b\":\"8888888888888888888\"},\"time\":140200,\"split\":[47600,61900,30700],\"flags\":1}],\"_uploaded\":1776511522589,\"_filename\":\"results_simulado_carrera.json\"},{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c0a9a695-982e-49af-8a31-c71c6b2f8ba1\",\"session_name\":\"Race Weekend\",\"session_type\":\"Qualify\",\"track_name\":\"Brands Hatch\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13882810487779772847\",\"b\":\"9957959175964167073\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/TimeAttack.Specialization\",\"base\":{\"session_duration_ms\":300000,\"session_laps\":0,\"maximum_session_overtime_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"speeding\":{\"required_speed\":60,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_MP_TeleportToPit\",\"penalty_time_ms\":10000,\"laps_for_clearing\":0},\"weight\":70}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[0],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":85857,\"split\":[32319,21117,32421],\"flags\":1},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":76242,\"split\":[21678,23082,31482],\"flags\":1},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":103998,\"split\":[47574,24540,31884],\"flags\":1}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"model_displayname\":\"Ferrari SF-25\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776536140862,\"_filename\":\"results_20260418_180710_qualify.json\"},{\"server_name\":\"Funes EVO Server\",\"server_id\":\"\",\"server_ip\":\"\",\"season_guid\":\"c0a9a695-982e-49af-8a31-c71c6b2f8ba1\",\"session_name\":\"Race Weekend\",\"session_type\":\"Race\",\"track_name\":\"Brands Hatch\",\"track_layout_name\":\"GP\",\"championship_id\":{\"a\":\"13882810487779772847\",\"b\":\"9957959175964167073\"},\"event_index\":0,\"session_index\":0,\"is_static\":false,\"is_completed\":true,\"specialization\":{\"@type\":\"type.googleapis.com/InstantRace.Specialization\",\"base\":{\"countdown_time_ms\":5000,\"countdown_random_min_time_ms\":250,\"countdown_random_max_time_ms\":4000,\"session_duration_ms\":300000,\"session_laps\":0,\"session_minimum_car_count\":0,\"maximum_waiting_for_players_duration_ms\":30000,\"minimum_waiting_for_players_duration_ms\":10000,\"maximum_session_waiting_for_leader_duration_ms\":0,\"maximum_session_overtime_duration_ms\":195000,\"maximum_go_to_box_duration_ms\":10000,\"maximum_session_overtime_before_next_session\":10000,\"start_mode\":\"Grid\",\"starting_position\":0,\"waiting_for_players\":true,\"intro_music\":true,\"end_music\":true,\"end_replay_type\":\"None\"},\"base_file\":\"\",\"base_source\":\"Custom\",\"penalty_transformations\":{\"transformations\":[{\"type\":\"PenaltyType_Warning\",\"trigger_type\":\"PenaltyTransformation_TriggerType_Count\",\"trigger_countdown\":3,\"triggered_data\":{\"type\":\"PenaltyType_Time_Penalty_Seconds\",\"penalty_time_ms\":5000,\"laps_for_clearing\":0},\"optional_clearing_type\":\"PenaltyTransformation_TriggerType_Time_ms\",\"optional_clearing_countdown\":3600000,\"post_session_transformation\":{\"add_pitlane_time\":false}},{\"type\":\"PenaltyType_Drive_Through\",\"trigger_type\":\"PenaltyTransformation_TriggerType_Count\",\"trigger_countdown\":2,\"triggered_data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"optional_clearing_type\":\"PenaltyTransformation_TriggerType_Time_ms\",\"optional_clearing_countdown\":0,\"post_session_transformation\":{\"add_pitlane_time\":true}},{\"type\":\"PenaltyType_Stop_And_Go\",\"trigger_type\":\"PenaltyTransformation_TriggerType_Count\",\"trigger_countdown\":2,\"triggered_data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"optional_clearing_type\":\"PenaltyTransformation_TriggerType_Lap\",\"optional_clearing_countdown\":0,\"post_session_transformation\":{\"add_pitlane_time\":true}}]},\"penalty_transformations_file\":\"EA1\",\"penalty_transformations_source\":\"Custom\",\"penalty_investigations\":{\"triggers\":[{\"race_car_cut\":{\"tyres_out\":3,\"wet_multiplier\":0},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":0},{\"data\":{\"type\":\"PenaltyType_Time_Penalty_Seconds\",\"penalty_time_ms\":5000,\"laps_for_clearing\":0},\"weight\":1000},{\"data\":{\"type\":\"PenaltyType_Drive_Through\",\"penalty_time_ms\":0,\"laps_for_clearing\":3},\"weight\":3000}]},{\"wrong_way\":{\"min_speed\":2,\"speed_multiplier\":0.1,\"out_of_track_multiplier\":2},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Warning\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":30},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":100}]},{\"wrong_position_on_start\":{\"distance_on_grid_thresholds\":[{\"threshold\":0.3,\"level\":1},{\"threshold\":0.6,\"level\":2}],\"distance_on_start_thresholds\":[{\"threshold\":0.3,\"level\":1},{\"threshold\":0.6,\"level\":2}],\"rotation_thresholds\":[{\"threshold\":30,\"level\":1},{\"threshold\":45,\"level\":2}]},\"command_name\":\"\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Time_Penalty_Seconds\",\"penalty_time_ms\":5000,\"laps_for_clearing\":0},\"weight\":1},{\"data\":{\"type\":\"PenaltyType_Drive_Through\",\"penalty_time_ms\":0,\"laps_for_clearing\":3},\"weight\":2}]},{\"speeding\":{\"required_speed\":50,\"check_if_higher\":true},\"command_name\":\"pitlane\",\"checks\":[{\"data\":{\"type\":\"PenaltyType_Drive_Through\",\"penalty_time_ms\":0,\"laps_for_clearing\":3},\"weight\":62},{\"data\":{\"type\":\"PenaltyType_Disqualification\",\"penalty_time_ms\":0,\"laps_for_clearing\":0},\"weight\":80}]}]},\"penalty_investigations_file\":\"EA1\",\"penalty_investigations_source\":\"Custom\",\"rules\":[],\"allowed_car_table_keys\":[],\"allowed_car_keys\":[]},\"car_standings\":[{\"car_id\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"total_km\":0,\"total_fuel_liters\":0,\"energy_source_consumed\":0,\"energy_source_type\":\"FuelLiter\",\"starting_position\":0,\"tyre_tread_consumed\":{}}],\"driver_standings\":[{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"}],\"time_standings\":[364691],\"drivers\":[{\"guid\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"first_name\":\"Oscar\",\"last_name\":\"Funes\",\"nickname\":\"Funes\",\"player_id\":\"76561199084353104\",\"nation\":\"ESP\"}],\"laps\":[{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":78669,\"split\":[27471,20817,30381],\"flags\":2},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":72201,\"split\":[21513,20736,29952],\"flags\":2},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":71151,\"split\":[20892,20577,29682],\"flags\":2},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":70377,\"split\":[20955,20115,29307],\"flags\":2},{\"car_key\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"driver_key\":{\"a\":\"4796416098215914105\",\"b\":\"11394849087776950201\"},\"time\":72279,\"split\":[21165,20544,30570],\"flags\":6}],\"car_points\":[],\"driver_points\":[],\"cars\":[{\"car_id\":{\"a\":\"5721499198961828423\",\"b\":\"4776661827827513486\"},\"model_displayname\":\"Ferrari SF-25\",\"model_mechanical_preset\":\"tbd.\",\"performance_indicator\":0,\"race_number\":1}],\"_uploaded\":1776536147350,\"_filename\":\"results_20260418_181353_race.json\"}]");}catch(e){}}());
+// ── INIT ───────────────────────────────────────────────────────────────
+loadFromStorage();
+switchPage('championship');
 </script>
-</body></html>
+</body>
+</html>
